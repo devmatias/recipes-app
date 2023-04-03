@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 function Login() {
@@ -28,7 +28,7 @@ function Login() {
     const settingEmail = {
       email,
     };
-    localStorage.setItem('user', settingEmail);
+    localStorage.setItem('user', JSON.stringify(settingEmail));
   };
 
   return (
