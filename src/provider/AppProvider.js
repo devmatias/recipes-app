@@ -6,13 +6,12 @@ function AppProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
   const value = useMemo(() => ({
     email,
     password,
     setPassword,
     setEmail,
-  }), []);
+  }), [email, password]);
 
   return (
     <AppContext.Provider value={ value }>{children}</AppContext.Provider>
