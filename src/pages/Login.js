@@ -20,10 +20,15 @@ function Login() {
   };
 
   const enableButton = () => {
-    console.log('entrou');
     const teste = !(validateEmail() && validatePassword());
-    console.log(teste);
     return teste;
+  };
+
+  const handleClick = () => {
+    const settingEmail = {
+      email,
+    };
+    localStorage.setItem('user', JSON.stringify(settingEmail));
   };
 
   return (
@@ -50,6 +55,7 @@ function Login() {
             type="button"
             data-testid="login-submit-btn"
             disabled={ enableButton() }
+            onClick={ handleClick }
           >
             Enter
           </button>
