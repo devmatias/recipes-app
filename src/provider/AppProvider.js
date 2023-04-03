@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
 
 function AppProvider({ children }) {
-  const [state, setState] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
 
   const value = useMemo(() => ({
-    state,
-    setState,
-  }), [state]);
+    email,
+    password,
+    setPassword,
+    setEmail,
+  }), []);
 
   return (
     <AppContext.Provider value={ value }>{children}</AppContext.Provider>
