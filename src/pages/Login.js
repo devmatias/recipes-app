@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Login() {
-    return (
+  return (
     <section>
       <form>
         <h1>Login</h1>
@@ -10,7 +10,7 @@ function Login() {
             placeholder="Email"
             type="email"
             data-testid="email-input"
-            />
+          />
           <input
             placeholder="Password"
             type="password"
@@ -29,6 +29,5 @@ function Login() {
     </section>
   );
 }
-
 
 export default Login;

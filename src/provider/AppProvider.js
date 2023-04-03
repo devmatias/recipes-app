@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
 
 function AppProvider({ children }) {
