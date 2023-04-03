@@ -1,6 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AppContext from '../context/AppContext';
 
 function Login() {
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+  } = useContext(AppContext);
+
+  const validateEmail = () => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
+  const validatePassword = () => {
+    const characters = 6;
+    return password.length > characters;
+  };
+
+  const enableButton = () => {
+    const teste = !(validateEmail() && validatePassword());
+    return teste;
+  };
+
+  const handleClick = () => {
+    const settingEmail = {
+      email,
+    };
+    localStorage.setItem('user', JSON.stringify(settingEmail));
+  };
+
   return (
     <section>
       <form>
@@ -10,17 +40,22 @@ function Login() {
             placeholder="Email"
             type="email"
             data-testid="email-input"
+            onChange={ (e) => setEmail(e.target.value) }
           />
           <input
             placeholder="Password"
             type="password"
             data-testid="password-input"
+            onChange={ (e) => setPassword(e.target.value) }
+
           />
         </section>
         <section>
           <button
             type="button"
             data-testid="login-submit-btn"
+            disabled={ enableButton() }
+            onClick={ handleClick }
           >
             Enter
           </button>
