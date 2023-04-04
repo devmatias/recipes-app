@@ -4,12 +4,12 @@ function SearchBar() {
   return (
     <form>
       <header>
-        <input
+        {/* <input
           type="text"
           name="Pesquisa"
           data-testid="search-input"
           placeholder="Pesquisa"
-        />
+        /> */}
         <div>
           <label htmlFor="ingredient">
             Ingredient
