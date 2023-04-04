@@ -25,5 +25,5 @@ function App() {
     </main>
   );
 }
-//teste
+
 export default App;
