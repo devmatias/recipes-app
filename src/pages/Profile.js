@@ -1,3 +1,4 @@
+import Footer from '../components/Footer';
 import profileIcon from '../images/profileIcon.svg';
 
 function Profile() {
@@ -9,6 +10,7 @@ function Profile() {
         alt="profile Icon"
         data-testid="profile-top-btn"
       />
+      <Footer />
     </header>
   );
 }
