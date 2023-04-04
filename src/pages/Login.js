@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
 function Login() {
@@ -23,12 +25,14 @@ function Login() {
     const teste = !(validateEmail() && validatePassword());
     return teste;
   };
+  const history = useHistory();
 
-  const handleClick = () => {
+  const HandleClick = () => {
     const settingEmail = {
       email,
     };
     localStorage.setItem('user', JSON.stringify(settingEmail));
+    history.push('/meals');
   };
 
   return (
@@ -55,7 +59,7 @@ function Login() {
             type="button"
             data-testid="login-submit-btn"
             disabled={ enableButton() }
-            onClick={ handleClick }
+            onClick={ HandleClick }
           >
             Enter
           </button>
@@ -64,5 +68,10 @@ function Login() {
     </section>
   );
 }
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Login;
