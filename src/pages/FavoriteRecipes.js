@@ -1,9 +1,9 @@
 import profileIcon from '../images/profileIcon.svg';
 
-function Profile() {
+function FavoriteRecipes() {
   return (
     <header>
-      <h1 data-testid="page-title">Profile</h1>
+      <h1 data-testid="page-title">Favorite Recipes</h1>
       <img
         src={ profileIcon }
         alt="profile Icon"
@@ -13,4 +13,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default FavoriteRecipes;
