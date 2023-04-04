@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+import Footer from './components/Footer';
 import RecipePage from './pages/RecipePage';
 
 function App() {
   return (
-    <div>
       <main>
         <Switch>
           <Route path="/drinks/:id-da-receita/in-progress" component={}/>
@@ -20,7 +20,6 @@ function App() {
           <Route exact path="/" component={ Login } />
         </Switch>
       </main>
-    </div>
   );
 }
 
