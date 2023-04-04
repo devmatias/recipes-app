@@ -4,8 +4,8 @@ import Header from '../components/Header';
 function Drinks() {
   return (
     <header>
-      <h1 data-testid="page-title">Drinks</h1>
       <Header />
+      <h1 data-testid="page-title">Drinks</h1>
     </header>
   );
 }
