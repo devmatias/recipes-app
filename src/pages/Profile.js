@@ -13,7 +13,7 @@ function Profile() {
 
   const handleClick = () => {
     redirectPage('/');
-    localStorage.removeItem('user');
+    localStorage.clear();
   };
 
   return (
