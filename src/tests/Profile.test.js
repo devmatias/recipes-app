@@ -6,20 +6,30 @@ import renderWithRouter from '../renderWithRouter';
 
 const PROFILE_TOP_BTN = 'profile-top-btn';
 
+const setLocalStorage = (id, data) => {
+  window.localStorage.setItem(id, JSON.stringify(data));
+};
+
 describe('Testando o componente <Profile/>', () => {
   it('Teste para ver se os elementos estão na página', () => {
     render(<Profile />);
 
     const titleProfile = screen.getByTestId('page-title');
     const profileIcon = screen.getByTestId(PROFILE_TOP_BTN);
-    const email = screen.getByTestId('profile-email');
+
+    const mockId = '0';
+    const mockJson = { email: 'teste@teste.com' };
+    setLocalStorage(mockId, mockJson);
+
     const buttonDoneRecipes = screen.getByTestId('profile-done-btn');
     const buttonFavoriteRecipes = screen.getByTestId('profile-favorite-btn');
     const buttonLogout = screen.getByTestId('profile-logout-btn');
 
     expect(titleProfile).toBeVisible();
     expect(profileIcon).toBeVisible();
-    expect(email).toBeVisible();
+
+    expect(localStorage.getItem(mockId)).toEqual(JSON.stringify(mockJson));
+
     expect(buttonDoneRecipes).toBeVisible();
     expect(buttonFavoriteRecipes).toBeVisible();
     expect(buttonLogout).toBeVisible();
