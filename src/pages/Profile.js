@@ -3,6 +3,8 @@ import Footer from '../components/Footer';
 import profileIcon from '../images/profileIcon.svg';
 
 function Profile() {
+  const saveEmail = JSON.parse(localStorage.getItem('user'));
+  console.log(saveEmail);
   const history = useHistory();
 
   const redirectPage = (path) => {
@@ -22,7 +24,7 @@ function Profile() {
           />
         </button>
       </header>
-      <p data-testid="profile-email">Usuário:</p>
+      <p data-testid="profile-email">{saveEmail.email}</p>
       <button type="button" data-testid="profile-done-btn">Done Recipes</button>
       <button type="button" data-testid="profile-favorite-btn">Favorite Recipes</button>
       <button type="button" data-testid="profile-logout-btn">Logout</button>
