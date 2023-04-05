@@ -29,7 +29,7 @@ function AppProvider({ children }) {
     drinks,
     setDrinks,
 
-  }), [email, password, radio, searchValue, meals]);
+  }), [email, password, radio, searchValue, meals, drinks]);
 
   return (
     <AppContext.Provider value={ value }>{children}</AppContext.Provider>
