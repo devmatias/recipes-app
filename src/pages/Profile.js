@@ -32,7 +32,13 @@ function Profile() {
       >
         Done Recipes
       </button>
-      <button type="button" data-testid="profile-favorite-btn">Favorite Recipes</button>
+      <button
+        onClick={ () => redirectPage('/favorite-recipes') }
+        type="button"
+        data-testid="profile-favorite-btn"
+      >
+        Favorite Recipes
+      </button>
       <button type="button" data-testid="profile-logout-btn">Logout</button>
       <Footer />
     </>
