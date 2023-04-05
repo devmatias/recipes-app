@@ -3,25 +3,57 @@ import Footer from '../components/Footer';
 import profileIcon from '../images/profileIcon.svg';
 
 function Profile() {
+  const saveEmail = JSON.parse(localStorage.getItem('user'));
+
   const history = useHistory();
 
   const redirectPage = (path) => {
     history.push(path);
   };
+
+  const handleClick = () => {
+    redirectPage('/');
+    localStorage.clear();
+  };
+
   return (
-    <header>
-      <h1 data-testid="page-title">Profile</h1>
+    <>
+      <header>
+        <h1 data-testid="page-title">Profile</h1>
+        <button
+          onClick={ () => redirectPage('/profile') }
+        >
+          <img
+            src={ profileIcon }
+            alt="profile Icon"
+            data-testid="profile-top-btn"
+          />
+        </button>
+      </header>
+      <p data-testid="profile-email">{saveEmail.email}</p>
       <button
-        onClick={ () => redirectPage('/profile') }
+        onClick={ () => redirectPage('/done-recipes') }
+        type="button"
+        data-testid="profile-done-btn"
       >
-        <img
-          src={ profileIcon }
-          alt="profile Icon"
-          data-testid="profile-top-btn"
-        />
+        Done Recipes
+      </button>
+      <button
+        onClick={ () => redirectPage('/favorite-recipes') }
+        type="button"
+        data-testid="profile-favorite-btn"
+      >
+        Favorite Recipes
+      </button>
+      <button
+        onClick={ () => handleClick() }
+        type="button"
+        data-testid="profile-logout-btn"
+      >
+        Logout
       </button>
       <Footer />
-    </header>
+    </>
   );
 }
 
