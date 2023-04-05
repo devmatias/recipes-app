@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AppContext from '../context/AppContext';
 
 function SearchBar() {
+  const { setRadio } = useContext(AppContext);
+  const onChangeRadio = ({ target: { value } }) => {
+    setRadio(value);
+  };
+
   return (
     <form>
       <header>
-        {/* <input
-          type="text"
-          name="Pesquisa"
-          data-testid="search-input"
-          placeholder="Pesquisa"
-        /> */}
+
         <div>
           <label htmlFor="ingredient">
             Ingredient
             <input
               type="radio"
               data-testid="ingredient-search-radio"
-              name="search"
+              value="ingredient"
+              name="radio"
+              onChange={ onChangeRadio }
             />
           </label>
           <label htmlFor="name">
@@ -24,7 +27,9 @@ function SearchBar() {
             <input
               type="radio"
               data-testid="name-search-radio"
-              name="search"
+              value="name"
+              name="radio"
+              onChange={ onChangeRadio }
             />
           </label>
           <label htmlFor="firstLetter">
@@ -32,12 +37,14 @@ function SearchBar() {
             <input
               type="radio"
               data-testid="first-letter-search-radio"
-              name="search"
+              value="first-letter"
+              name="radio"
+              onChange={ onChangeRadio }
             />
           </label>
         </div>
         <button
-          type="submit"
+          type="button"
           data-testid="exec-search-btn"
         >
           Search
