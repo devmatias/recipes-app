@@ -1,36 +1,74 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import {
   fetchMealsByFirstLetter,
   fetchMealsByIngredient,
   fetchMealsByName,
+  fetchDrinksByFirstLetter,
+  fetchDrinksByName,
+  fetchDrinksByIngredient,
 } from '../services/FetchFunctions';
 
 function SearchBar() {
-  const { setRadio, radio, searchValue, setMeals, meals } = useContext(AppContext);
+  const {
+    setRadio,
+    radio,
+    searchValue,
+    setMeals,
+    meals,
+    drinks,
+    setDrinks,
+  } = useContext(AppContext);
+  const location = useLocation();
+  console.log(location.pathname);
   const handleClick = async () => {
-    switch (radio) {
-    case 'ingredient':
-      { const mealsByIngredient = await fetchMealsByIngredient(searchValue);
-        setMeals(mealsByIngredient); }
-      break;
-    case 'first-letter':
-      if (searchValue.length > 1) {
-        global.alert('Your search must have only 1 (one) character');
-      } else {
-        const mealsByFirstLetter = await fetchMealsByFirstLetter(searchValue);
-        setMeals(mealsByFirstLetter);
-      }
-      break;
-    case 'name':
-      { const mealsByName = await fetchMealsByName(searchValue);
-        setMeals(mealsByName); }
+    if (location.pathname === '/meals') {
+      switch (radio) {
+      case 'ingredient':
+        { const mealsByIngredient = await fetchMealsByIngredient(searchValue);
+          setMeals(mealsByIngredient); }
+        break;
+      case 'first-letter':
+        if (searchValue.length > 1) {
+          global.alert('Your search must have only 1 (one) character');
+        } else {
+          const mealsByFirstLetter = await fetchMealsByFirstLetter(searchValue);
+          setMeals(mealsByFirstLetter);
+        }
+        break;
+      case 'name':
+        { const mealsByName = await fetchMealsByName(searchValue);
+          setMeals(mealsByName); }
 
-      break;
-    default:
-      break;
+        break;
+      default:
+        break;
+      }
+    } if (location.pathname === '/drinks') {
+      switch (radio) {
+      case 'ingredient':
+        { const drinksByIngredient = await fetchDrinksByIngredient(searchValue);
+          setDrinks(drinksByIngredient); }
+        break;
+      case 'first-letter':
+        if (searchValue.length > 1) {
+          global.alert('Your search must have only 1 (one) character');
+        } else {
+          const drinksByFirstLetter = await fetchDrinksByFirstLetter(searchValue);
+          setDrinks(drinksByFirstLetter);
+        }
+        break;
+      case 'name':
+        { const drinksByName = await fetchDrinksByName(searchValue);
+          setDrinks(drinksByName); }
+
+        break;
+      default:
+        break;
+      }
     }
-    console.log(meals);
+    console.log(drinks);
   };
 
   return (
