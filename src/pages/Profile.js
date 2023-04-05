@@ -3,7 +3,10 @@ import Footer from '../components/Footer';
 import profileIcon from '../images/profileIcon.svg';
 
 function Profile() {
-  const saveEmail = JSON.parse(localStorage.getItem('user'));
+  let saveEmail = '';
+  if (localStorage.getItem('user')) {
+    saveEmail = JSON.parse(localStorage.getItem('user'));
+  }
 
   const history = useHistory();
 
@@ -30,7 +33,9 @@ function Profile() {
           />
         </button>
       </header>
-      <p data-testid="profile-email">{saveEmail.email}</p>
+      {
+        saveEmail.email && (<p data-testid="profile-email">{saveEmail.email}</p>)
+      }
       <button
         onClick={ () => redirectPage('/done-recipes') }
         type="button"

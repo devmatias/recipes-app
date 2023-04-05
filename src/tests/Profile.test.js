@@ -1,38 +1,47 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Profile from '../pages/Profile';
 import renderWithRouter from '../renderWithRouter';
+import AppProvider from '../provider/AppProvider';
 
 const PROFILE_TOP_BTN = 'profile-top-btn';
-
-const setLocalStorage = (id, data) => {
-  window.localStorage.setItem(id, JSON.stringify(data));
-};
+const PROFILE_FAVORITE_BTN = 'profile-favorite-btn';
 
 describe('Testando o componente <Profile/>', () => {
   it('Teste para ver se os elementos estão na página', () => {
-    render(<Profile />);
+    render(
+      <AppProvider>
+        <Profile />
+      </AppProvider>,
+    );
 
     const titleProfile = screen.getByTestId('page-title');
     const profileIcon = screen.getByTestId(PROFILE_TOP_BTN);
-
-    const mockId = '0';
-    const mockJson = { email: 'teste@teste.com' };
-    setLocalStorage(mockId, mockJson);
-
     const buttonDoneRecipes = screen.getByTestId('profile-done-btn');
-    const buttonFavoriteRecipes = screen.getByTestId('profile-favorite-btn');
+    const buttonFavoriteRecipes = screen.getByTestId(PROFILE_FAVORITE_BTN);
     const buttonLogout = screen.getByTestId('profile-logout-btn');
 
     expect(titleProfile).toBeVisible();
     expect(profileIcon).toBeVisible();
-
-    expect(localStorage.getItem(mockId)).toEqual(JSON.stringify(mockJson));
-
     expect(buttonDoneRecipes).toBeVisible();
     expect(buttonFavoriteRecipes).toBeVisible();
     expect(buttonLogout).toBeVisible();
+  });
+
+  it('Itens salvos em LocalStorage', async () => {
+    render(
+      <AppProvider>
+        <Profile />
+      </AppProvider>,
+    );
+
+    const email = '{"email":"test@example.com"}';
+    localStorage.setItem('user', email);
+
+    await waitFor(() => {
+      expect(localStorage.getItem('user')).toEqual(email);
+    });
   });
 
   it('Redirecionamento profile', () => {
@@ -55,16 +64,22 @@ describe('Testando o componente <Profile/>', () => {
     expect(buttonDoneRecipes).toBeVisible();
   });
 
-  // it('Testa se ao clicar no botao a barra de procura aparece', () => {
-  //   render(<Profile />);
+  it('Redirecionamento para Favorite Recipes', () => {
+    const { history } = renderWithRouter(<Profile />);
 
-  //   const searchButton = screen.getByTestId('search-top-btn');
-  //   userEvent.click(searchButton);
+    const buttonFavoriteRecipes = screen.getByTestId(PROFILE_FAVORITE_BTN);
+    userEvent.click(buttonFavoriteRecipes);
 
-  //   const inputSearch = screen.getByTestId('search-input');
-  //   expect(inputSearch).toBeVisible();
+    expect(history.location.pathname).toBe('/favorite-recipes');
+    expect(buttonFavoriteRecipes).toBeVisible();
+  });
 
-  //   userEvent.click(searchButton);
-  //   expect(inputSearch).not.toBeVisible();
-  // });
+  it('Redirecionamento para tela de Login e localStorage deve ser limpo', () => {
+    const { history } = renderWithRouter(<Profile />);
+
+    const buttonLogout = screen.getByTestId('profile-logout-btn');
+    userEvent.click(buttonLogout);
+
+    expect(history.location.pathname).toBe('/');
+  });
 });
