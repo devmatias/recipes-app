@@ -5,13 +5,27 @@ import AppContext from '../context/AppContext';
 function AppProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [radio, setRadio] = useState('');
+  const [searchValue, setSearchValue] = useState('');
+  const [meals, setMeals] = useState([]);
+
+  // useEffect(() => {
+  //   console.log(meals);
+  //   fetchMeals();
+  // }, [radio, searchValue]);
 
   const value = useMemo(() => ({
     email,
     password,
     setPassword,
     setEmail,
-  }), [email, password]);
+    setRadio,
+    setSearchValue,
+    searchValue,
+    setMeals,
+    meals,
+    radio,
+  }), [email, password, radio, searchValue, meals]);
 
   return (
     <AppContext.Provider value={ value }>{children}</AppContext.Provider>

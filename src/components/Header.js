@@ -1,12 +1,15 @@
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import AppContext from '../context/AppContext';
 
 function Header() {
   const history = useHistory();
   const [isSearching, setIsSearching] = useState(false);
+
+  const { setSearchValue } = useContext(AppContext);
 
   const redirectPage = (path) => {
     history.push(path);
@@ -34,7 +37,15 @@ function Header() {
         />
       </button>
       {
-        isSearching && (<input type="text" data-testid="search-input" />)
+        isSearching
+        && (
+          <input
+            type="text"
+            data-testid="search-input"
+            onChange={ (e) => setSearchValue(e.target.value) }
+          />
+
+        )
       }
       <SearchBar />
     </header>
