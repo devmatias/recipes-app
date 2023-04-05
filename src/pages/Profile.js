@@ -4,12 +4,18 @@ import profileIcon from '../images/profileIcon.svg';
 
 function Profile() {
   const saveEmail = JSON.parse(localStorage.getItem('user'));
-  console.log(saveEmail);
+
   const history = useHistory();
 
   const redirectPage = (path) => {
     history.push(path);
   };
+
+  const handleClick = () => {
+    redirectPage('/');
+    localStorage.removeItem('user');
+  };
+
   return (
     <>
       <header>
@@ -39,7 +45,13 @@ function Profile() {
       >
         Favorite Recipes
       </button>
-      <button type="button" data-testid="profile-logout-btn">Logout</button>
+      <button
+        onClick={ () => handleClick() }
+        type="button"
+        data-testid="profile-logout-btn"
+      >
+        Logout
+      </button>
       <Footer />
     </>
   );
