@@ -11,17 +11,29 @@ import {
 } from '../services/FetchFunctions';
 
 function SearchBar() {
+  const location = useLocation();
+
   const {
     setRadio,
     radio,
     searchValue,
     setMeals,
-    meals,
+
     drinks,
     setDrinks,
   } = useContext(AppContext);
-  const location = useLocation();
+
   console.log(location.pathname);
+
+  // const redirectPage = () => {
+  //   const { mealId } = meals;
+  //   const { idDrink } = drinks;
+  //   if (meals.length === 0) {
+  //     history.push(`/meals/:${mealId}`);
+  //   } if (drinks.length === 0) {
+  //     history.push(`/drinks/:${idDrink}`);
+  //   }
+  // };
   const handleClick = async () => {
     if (location.pathname === '/meals') {
       switch (radio) {
@@ -67,6 +79,7 @@ function SearchBar() {
       default:
         break;
       }
+      // redirectPage();
     }
     console.log(drinks);
   };
