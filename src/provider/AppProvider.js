@@ -38,7 +38,7 @@ function AppProvider({ children }) {
     setRecipe,
     recipe,
 
-  }), [email, password, radio, searchValue, meals, drinks, categories, lastFilter,]);
+  }), [email, password, radio, searchValue, meals, drinks, categories, lastFilter]);
 
   return (
     <AppContext.Provider value={ value }>{children}</AppContext.Provider>

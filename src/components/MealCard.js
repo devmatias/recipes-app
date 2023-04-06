@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AppContext from '../context/AppContext';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { defaultSearch, filterByCategory, getCategories } from '../services/FetchFunctions';
+import Header from './Header';
+import Footer from './Footer';
+import { defaultSearch, filterByCategory, getCategories }
+  from '../services/FetchFunctions';
 
 function MealCard() {
   const { drinks,
@@ -31,7 +32,6 @@ function MealCard() {
     getMeals();
   }, []);
 
-
   const filteredCategory = async (category) => {
     if (lastFilter === category) {
       getMeals();
@@ -45,48 +45,48 @@ function MealCard() {
 
   return (
     <>
-    <div><Header isRender namePage="Meals" /></div>
+      <div><Header isRender namePage="Meals" /></div>
 
-    <div>
-      <button data-testid="All-category-filter" onClick={ allButtonClick }>All</button>
-      { categories?.slice(0, five).map((category, index) => (
-        <button
-          onClick={ () => filteredCategory(category.strCategory) }
-          key={ index }
-          data-testid={ `${category.strCategory}-category-filter` }
-        >
-          {category.strCategory}
-        </button>
-      ))}
-    </div>
+      <div>
+        <button data-testid="All-category-filter" onClick={ allButtonClick }>All</button>
+        { categories?.slice(0, five).map((category, index) => (
+          <button
+            onClick={ () => filteredCategory(category.strCategory) }
+            key={ index }
+            data-testid={ `${category.strCategory}-category-filter` }
+          >
+            {category.strCategory}
+          </button>
+        ))}
+      </div>
 
-    {drinks ? (
+      {drinks ? (
 
-      drinks.slice(0, number).map((meal, index) => (
-        <div
-          key={ index }
-          data-testid={ `${index}-recipe-card` }
-        >
-               <Link to={ `/meals/${meal.idMeal}` }>
+        drinks.slice(0, number).map((meal, index) => (
+          <div
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <Link to={ `/meals/${meal.idMeal}` }>
               <img
                 data-testid={ `${index}-card-img` }
                 src={ meal.strMealThumb }
                 alt={ meal.strMeal }
                 width={ 300 }
               />
-  <div
+              <div
                 data-testid={ `${index}-card-name` }
               >
                 {meal.strMeal}
               </div>
             </Link>
-            </div>
+          </div>
 
-))
-)
-: <div><Footer /></div>}
-</>
-);
+        ))
+      )
+        : <div><Footer /></div>}
+    </>
+  );
 }
 
 export default MealCard;
