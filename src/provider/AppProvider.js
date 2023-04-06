@@ -1,7 +1,6 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
-import { errorMessage } from '../helpers/ErrorMessage';
 
 function AppProvider({ children }) {
   const [email, setEmail] = useState('');

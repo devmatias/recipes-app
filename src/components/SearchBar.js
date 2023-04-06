@@ -20,9 +20,9 @@ function SearchBar() {
     radio,
     searchValue,
     setMeals,
-    drinks,
+
     setDrinks,
-    meals,
+
   } = useContext(AppContext);
   console.log(location.pathname);
 
