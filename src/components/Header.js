@@ -1,15 +1,17 @@
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import AppContext from '../context/Context';
+import pathFinder from '../utils/pathFinder';
 
 function Header() {
+  const location = useLocation();
   const history = useHistory();
   const [isSearching, setIsSearching] = useState(false);
+  const context = pathFinder(location);
 
-  const { setSearchValue } = useContext(AppContext);
+  const { setSearchValue } = useContext(context);
 
   const redirectPage = (path) => {
     history.push(path);

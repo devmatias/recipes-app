@@ -1,12 +1,13 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { DrinksContext } from '../context/Context';
 import { DRINKS_NAME_URL } from '../utils/constants';
+import { fetchData } from '../services/FetchFunctions';
 
 function DrinksProvider({ children }) {
   const [radio, setRadio] = useState('');
   const [searchValue, setSearchValue] = useState('');
-  const [recipe, setRecipe] = useState('');
+  const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -22,16 +23,16 @@ function DrinksProvider({ children }) {
     setSearchValue,
     searchValue,
     radio,
-    setRecipe,
-    recipe,
+    setRecipes,
+    recipes,
     isLoading,
   }), [
     setRadio,
     setSearchValue,
     searchValue,
     radio,
-    setRecipe,
-    recipe,
+    setRecipes,
+    recipes,
     isLoading,
   ]);
 

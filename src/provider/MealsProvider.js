@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { MealsContext } from '../context/Context';
 import { fetchData } from '../services/FetchFunctions';
@@ -18,12 +18,15 @@ function MealsProvider({ children }) {
       });
   }, []);
 
+  // useEffect(() => {
+
+  // }, [recipes]);
+
   const value = useMemo(() => ({
     setRadio,
     setSearchValue,
     searchValue,
     radio,
-
     setRecipes,
     recipes,
     isLoading,

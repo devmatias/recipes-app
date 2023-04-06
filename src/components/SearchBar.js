@@ -1,39 +1,40 @@
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import AppContext from '../context/Context';
 import { requestRecipes } from '../utils/requestRecipes';
 import { handleEmptyListAlert } from '../helpers/ErrorMessage';
+import pathFinder from '../utils/pathFinder';
 
 function SearchBar() {
   const location = useLocation();
   const history = useHistory();
+  const context = pathFinder(location);
 
   const {
     setRadio,
     radio,
     searchValue,
-    setMeals,
-    setDrinks,
-  } = useContext(AppContext);
-  console.log(location.pathname);
+    setRecipes,
+    recipes,
+  } = useContext(context);
 
   const requestData = async () => {
     try {
       const recipeData = await requestRecipes(radio, location.pathname, searchValue);
       let idRecipe = '';
-      console.log(recipeData);
       if (location.pathname === '/meals') {
-        setMeals(recipeData);
+        setRecipes(recipeData);
         idRecipe = recipeData[0].idMeal;
       } else {
-        setDrinks(recipeData);
         idRecipe = recipeData[0].idDrink;
       }
       if (recipeData.length === 1) {
         history.push(`${location.pathname}/${idRecipe}`);
       }
+      setRecipes(recipeData);
     } catch (error) {
+      const currentRecipes = [...recipes];
       handleEmptyListAlert(error);
+      setRecipes(currentRecipes);
     }
   };
 
