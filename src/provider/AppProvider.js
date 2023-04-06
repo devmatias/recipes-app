@@ -8,6 +8,7 @@ function AppProvider({ children }) {
   const [radio, setRadio] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [meals, setMeals] = useState([]);
+  const [drinks, setDrinks] = useState([]);
 
   // useEffect(() => {
   //   console.log(meals);
@@ -25,7 +26,10 @@ function AppProvider({ children }) {
     setMeals,
     meals,
     radio,
-  }), [email, password, radio, searchValue, meals]);
+    drinks,
+    setDrinks,
+
+  }), [email, password, radio, searchValue, meals, drinks]);
 
   return (
     <AppContext.Provider value={ value }>{children}</AppContext.Provider>
