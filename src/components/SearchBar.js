@@ -1,39 +1,48 @@
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import AppContext from '../context/AppContext';
 import { requestRecipes } from '../utils/requestRecipes';
+import { handleEmptyListAlert } from '../helpers/ErrorMessage';
+import pathFinder from '../utils/pathFinder';
 
 function SearchBar() {
   const location = useLocation();
   const history = useHistory();
+  const context = pathFinder(location);
 
   const {
     setRadio,
     radio,
     searchValue,
-    setMeals,
-    meals,
-    setDrinks,
-    drinks,
-  } = useContext(AppContext);
-  console.log(location.pathname);
+    setRecipes,
+    recipes,
+  } = useContext(context);
 
   const requestData = async () => {
-    const recipeData = requestRecipes(radio, location.pathname, searchValue);
-    let idRecipe = '';
-    if (location.pathname === '/meals') {
-      setMeals(recipeData);
-      idRecipe = meals[0].idMeal;
-    } else {
-      setDrinks(recipeData);
-      idRecipe = drinks[0].idDrink;
-    }
-    if (recipeData.length === 1) {
-      history.push(`${location.pathname}/${idRecipe}`);
+    try {
+      const recipeData = await requestRecipes(radio, location.pathname, searchValue);
+      let idRecipe = '';
+      if (location.pathname === '/meals') {
+        setRecipes(recipeData);
+        idRecipe = recipeData[0].idMeal;
+      } else {
+        idRecipe = recipeData[0].idDrink;
+      }
+      if (recipeData.length === 1) {
+        history.push(`${location.pathname}/${idRecipe}`);
+      }
+      setRecipes(recipeData);
+    } catch (error) {
+      const currentRecipes = [...recipes];
+      handleEmptyListAlert(error);
+      setRecipes(currentRecipes);
     }
   };
 
   const handleClick = async () => {
+    if (radio === 'first-letter' && searchValue.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
+      return;
+    }
     await requestData();
   };
 
