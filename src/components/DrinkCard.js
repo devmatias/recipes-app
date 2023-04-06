@@ -6,7 +6,8 @@ function DrinkCards() {
   const number = 12;
   return (
     <div>
-      {drinks.slice(0, number).map((drink, index) => (
+      { drinks
+      && drinks.slice(0, number).map((drink, index) => (
         <section data-testid={ `${index}-recipe-card` } key={ index }>
           <img
             data

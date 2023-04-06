@@ -11,9 +11,10 @@ function AppProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
 
   // useEffect(() => {
-  //   console.log(meals);
-  //   fetchMeals();
-  // }, [radio, searchValue]);
+  //   if (meals === null || drinks) {
+  //     globalThis.alert(errorMessage);
+  //   }
+  // }, [meals, drinks]);
 
   const value = useMemo(() => ({
     email,

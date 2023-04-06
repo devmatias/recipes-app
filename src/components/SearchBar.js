@@ -9,6 +9,7 @@ import {
   fetchDrinksByName,
   fetchDrinksByIngredient,
 } from '../services/FetchFunctions';
+import { handleEmptyListAlert } from '../helpers/ErrorMessage';
 
 function SearchBar() {
   const location = useLocation();
@@ -19,8 +20,9 @@ function SearchBar() {
     radio,
     searchValue,
     setMeals,
-    drinks,
+
     setDrinks,
+
   } = useContext(AppContext);
   console.log(location.pathname);
 
@@ -30,8 +32,9 @@ function SearchBar() {
       {
         const mealsByIngredient = await fetchMealsByIngredient(searchValue);
         setMeals(mealsByIngredient);
+        handleEmptyListAlert(mealsByIngredient);
 
-        if (mealsByIngredient.length === 1) {
+        if (mealsByIngredient && mealsByIngredient.length === 1) {
           const dataId = mealsByIngredient[0];
           history.push(`/meals/${dataId.idMeal}`);
         }
@@ -43,8 +46,9 @@ function SearchBar() {
       } else {
         const mealsByFirstLetter = await fetchMealsByFirstLetter(searchValue);
         setMeals(mealsByFirstLetter);
+        handleEmptyListAlert(mealsByFirstLetter);
 
-        if (mealsByFirstLetter.length === 1) {
+        if (mealsByFirstLetter && mealsByFirstLetter.length === 1) {
           const dataId = mealsByFirstLetter[0];
           history.push(`/meals/${dataId.idMeal}`);
         }
@@ -54,8 +58,9 @@ function SearchBar() {
       {
         const mealsByName = await fetchMealsByName(searchValue);
         setMeals(mealsByName);
+        handleEmptyListAlert(mealsByName);
 
-        if (mealsByName.length === 1) {
+        if (mealsByName && mealsByName.length === 1) {
           const dataId = mealsByName[0];
           history.push(`/meals/${dataId.idMeal}`);
         }
@@ -72,8 +77,9 @@ function SearchBar() {
       {
         const drinksByIngredient = await fetchDrinksByIngredient(searchValue);
         setDrinks(drinksByIngredient);
+        handleEmptyListAlert(drinksByIngredient);
 
-        if (drinksByIngredient.length === 1) {
+        if (drinksByIngredient && drinksByIngredient.length === 1) {
           const dataId = drinksByIngredient[0];
           history.push(`/drinks/${dataId.idDrink}`);
         }
@@ -85,8 +91,9 @@ function SearchBar() {
       } else {
         const drinksByFirstLetter = await fetchDrinksByFirstLetter(searchValue);
         setDrinks(drinksByFirstLetter);
+        handleEmptyListAlert(drinksByFirstLetter);
 
-        if (drinksByFirstLetter.length === 1) {
+        if (drinksByFirstLetter && drinksByFirstLetter.length === 1) {
           const dataId = drinksByFirstLetter[0];
           history.push(`/drinks/${dataId.idDrink}`);
         }
@@ -96,8 +103,9 @@ function SearchBar() {
       {
         const drinksByName = await fetchDrinksByName(searchValue);
         setDrinks(drinksByName);
+        handleEmptyListAlert(drinksByName);
 
-        if (drinksByName.length === 1) {
+        if (drinksByName && drinksByName.length === 1) {
           const dataId = drinksByName[0];
           history.push(`/drinks/${dataId.idDrink}`);
         }
@@ -113,10 +121,7 @@ function SearchBar() {
       await requestMeals();
     } if (location.pathname === '/drinks') {
       await requestDrinks();
-      // redirectPage();
     }
-
-    console.log(drinks);
   };
 
   return (
