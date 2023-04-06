@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AppContext from '../context/AppContext';
+import AppContext from '../context/Context';
 import Header from './Header';
 import Footer from './Footer';
 import { fetchData } from '../services/FetchFunctions';
@@ -53,13 +53,13 @@ function DrinkCards() {
       <div><Header isRender namePage="Drinks" /></div>
 
       <div>
-        <button data-testid="All-category-filter" onClick={ allButtonClick }>All</button>
+        <button data-testid="All-category-filter" onClick={allButtonClick}>All</button>
 
-        { categories?.slice(0, five).map((category, index) => (
+        {categories?.slice(0, five).map((category, index) => (
           <button
-            key={ index }
-            data-testid={ `${category.strCategory}-category-filter` }
-            onClick={ () => filteredCategory(category.strCategory) }
+            key={index}
+            data-testid={`${category.strCategory}-category-filter`}
+            onClick={() => filteredCategory(category.strCategory)}
           >
             {category.strCategory}
           </button>
@@ -69,18 +69,18 @@ function DrinkCards() {
       {drinks ? (
         drinks.slice(0, number).map((drink, index) => (
           <div
-            key={ index }
-            data-testid={ `${index}-recipe-card` }
+            key={index}
+            data-testid={`${index}-recipe-card`}
           >
-            <Link to={ `/drinks/${drink.idDrink}` }>
+            <Link to={`/drinks/${drink.idDrink}`}>
               <img
-                data-testid={ `${index}-card-img` }
-                src={ drink.strDrinkThumb }
-                alt={ drink.strDrink }
-                width={ 300 }
+                data-testid={`${index}-card-img`}
+                src={drink.strDrinkThumb}
+                alt={drink.strDrink}
+                width={300}
               />
               <div
-                data-testid={ `${index}-card-name` }
+                data-testid={`${index}-card-name`}
               >
                 {drink.strDrink}
               </div>

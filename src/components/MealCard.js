@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AppContext from '../context/AppContext';
+import AppContext from '../context/Context';
 import Header from './Header';
 import Footer from './Footer';
 import { fetchData }
@@ -31,7 +31,7 @@ function MealCard() {
 
   useEffect(() => {
     getMeals();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filteredCategory = async (category) => {
@@ -50,12 +50,12 @@ function MealCard() {
       <div><Header isRender namePage="Meals" /></div>
 
       <div>
-        <button data-testid="All-category-filter" onClick={ allButtonClick }>All</button>
-        { categories?.slice(0, five).map((category, index) => (
+        <button data-testid="All-category-filter" onClick={allButtonClick}>All</button>
+        {categories?.slice(0, five).map((category, index) => (
           <button
-            onClick={ () => filteredCategory(category.strCategory) }
-            key={ index }
-            data-testid={ `${category.strCategory}-category-filter` }
+            onClick={() => filteredCategory(category.strCategory)}
+            key={index}
+            data-testid={`${category.strCategory}-category-filter`}
           >
             {category.strCategory}
           </button>
@@ -66,18 +66,18 @@ function MealCard() {
 
         drinks.slice(0, number).map((meal, index) => (
           <div
-            key={ index }
-            data-testid={ `${index}-recipe-card` }
+            key={index}
+            data-testid={`${index}-recipe-card`}
           >
-            <Link to={ `/meals/${meal.idMeal}` }>
+            <Link to={`/meals/${meal.idMeal}`}>
               <img
-                data-testid={ `${index}-card-img` }
-                src={ meal.strMealThumb }
-                alt={ meal.strMeal }
-                width={ 300 }
+                data-testid={`${index}-card-img`}
+                src={meal.strMealThumb}
+                alt={meal.strMeal}
+                width={300}
               />
               <div
-                data-testid={ `${index}-card-name` }
+                data-testid={`${index}-card-name`}
               >
                 {meal.strMeal}
               </div>

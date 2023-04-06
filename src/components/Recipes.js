@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { MealsContext } from '../context/Context';
 
 function Recipes() {
   return (
-    <div />
+    <div>
+      oi
+    </div>
   );
 }
 

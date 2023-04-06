@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import AppContext from '../context/AppContext';
+import AppContext from '../context/Context';
 
 function Header() {
   const history = useHistory();
@@ -19,19 +19,19 @@ function Header() {
   return (
     <header>
       <button
-        onClick={ () => redirectPage('/profile') }
+        onClick={() => redirectPage('/profile')}
       >
         <img
-          src={ profileIcon }
+          src={profileIcon}
           alt="profile Icon"
           data-testid="profile-top-btn"
         />
       </button>
       <button
-        onClick={ toggleSearching }
+        onClick={toggleSearching}
       >
         <img
-          src={ searchIcon }
+          src={searchIcon}
           alt="search Icon"
           data-testid="search-top-btn"
         />
@@ -42,7 +42,7 @@ function Header() {
           <input
             type="text"
             data-testid="search-input"
-            onChange={ (e) => setSearchValue(e.target.value) }
+            onChange={(e) => setSearchValue(e.target.value)}
           />
 
         )

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import AppContext from '../context/AppContext';
+import AppContext from '../context/Context';
 
 function Login() {
   const {
@@ -44,13 +44,13 @@ function Login() {
             placeholder="Email"
             type="email"
             data-testid="email-input"
-            onChange={ (e) => setEmail(e.target.value) }
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             placeholder="Password"
             type="password"
             data-testid="password-input"
-            onChange={ (e) => setPassword(e.target.value) }
+            onChange={(e) => setPassword(e.target.value)}
 
           />
         </section>
@@ -58,8 +58,8 @@ function Login() {
           <button
             type="button"
             data-testid="login-submit-btn"
-            disabled={ enableButton() }
-            onClick={ HandleClick }
+            disabled={enableButton()}
+            onClick={HandleClick}
           >
             Enter
           </button>
