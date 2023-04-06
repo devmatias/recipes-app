@@ -1,15 +1,17 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import MealCard from '../components/MealCard';
 
-function RecipePage() {
+function Meals() {
   return (
     <header>
       <Header />
       <h1 data-testid="page-title">Meals</h1>
+      <MealCard />
       <Footer />
     </header>
   );
 }
 
-export default RecipePage;
+export default Meals;
