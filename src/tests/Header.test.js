@@ -3,10 +3,15 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Header from '../components/Header';
 import renderWithRouter from '../renderWithRouter';
+import AppProvider from '../provider/AppProvider';
 
 describe('Testando o componente <Header/>', () => {
   it('Teste para ver se os elementos estão na página', () => {
-    render(<Header />);
+    render(
+      <AppProvider>
+        <Header />
+      </AppProvider>,
+    );
 
     const profileIcon = screen.getByTestId('profile-top-btn');
     const searchButton = screen.getByTestId('search-top-btn');
@@ -16,7 +21,11 @@ describe('Testando o componente <Header/>', () => {
   });
 
   it('Redirecionamento para profile', () => {
-    const { history } = renderWithRouter(<Header />);
+    const { history } = renderWithRouter(
+      <AppProvider>
+        <Header />
+      </AppProvider>,
+    );
 
     const profileIcon = screen.getByTestId('profile-top-btn');
     userEvent.click(profileIcon);
@@ -25,8 +34,12 @@ describe('Testando o componente <Header/>', () => {
     expect(profileIcon).toBeVisible();
   });
 
-  it('Testa se ao clicar no botao a barra de procura aparece', () => {
-    render(<Header />);
+  it('Testa se ao clicar no botao a barra de procura aparece e se clicar novamente desaparece', () => {
+    render(
+      <AppProvider>
+        <Header />
+      </AppProvider>,
+    );
 
     const searchButton = screen.getByTestId('search-top-btn');
     userEvent.click(searchButton);
