@@ -19,19 +19,19 @@ function Header() {
   return (
     <header>
       <button
-        onClick={() => redirectPage('/profile')}
+        onClick={ () => redirectPage('/profile') }
       >
         <img
-          src={profileIcon}
+          src={ profileIcon }
           alt="profile Icon"
           data-testid="profile-top-btn"
         />
       </button>
       <button
-        onClick={toggleSearching}
+        onClick={ toggleSearching }
       >
         <img
-          src={searchIcon}
+          src={ searchIcon }
           alt="search Icon"
           data-testid="search-top-btn"
         />
@@ -42,7 +42,7 @@ function Header() {
           <input
             type="text"
             data-testid="search-input"
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={ (e) => setSearchValue(e.target.value) }
           />
 
         )

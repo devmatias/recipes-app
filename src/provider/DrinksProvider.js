@@ -1,52 +1,47 @@
 import { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { AppContext } from '../context/Context';
+import { DrinksContext } from '../context/Context';
+import { DRINKS_NAME_URL } from '../utils/constants';
 
-function AppProvider({ children }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function DrinksProvider({ children }) {
   const [radio, setRadio] = useState('');
   const [searchValue, setSearchValue] = useState('');
-  const [meals, setMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [lastFilter, setLastFilter] = useState('');
   const [recipe, setRecipe] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   console.log(meals);
-  //   fetchMeals();
-  // }, [radio, searchValue]);
+  useEffect(() => {
+    fetchData(DRINKS_NAME_URL)
+      .then((dataMeals) => {
+        setRecipes(dataMeals.drinks);
+        setIsLoading(false);
+      });
+  }, []);
 
   const value = useMemo(() => ({
-    email,
-    password,
-    setPassword,
-    setEmail,
     setRadio,
     setSearchValue,
     searchValue,
-    setMeals,
-    meals,
     radio,
-    drinks,
-    setDrinks,
-    categories,
-    setCategories,
-    lastFilter,
-    setLastFilter,
     setRecipe,
     recipe,
-
-  }), [email, password, radio, searchValue, meals, drinks, categories, lastFilter]);
+    isLoading,
+  }), [
+    setRadio,
+    setSearchValue,
+    searchValue,
+    radio,
+    setRecipe,
+    recipe,
+    isLoading,
+  ]);
 
   return (
-    <AppContext.Provider value={ value }>{children}</AppContext.Provider>
+    <DrinksContext.Provider value={ value }>{children}</DrinksContext.Provider>
   );
 }
 
-AppProvider.propTypes = {
+DrinksProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default AppProvider;
+export default DrinksProvider;

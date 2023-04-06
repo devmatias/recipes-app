@@ -7,8 +7,6 @@ import { MEALS_NAME_URL } from '../utils/constants';
 function MealsProvider({ children }) {
   const [radio, setRadio] = useState('');
   const [searchValue, setSearchValue] = useState('');
-  // const [categories, setCategories] = useState([]);
-  // const [lastFilter, setLastFilter] = useState('');
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,16 +23,13 @@ function MealsProvider({ children }) {
     setSearchValue,
     searchValue,
     radio,
-    // categories,
-    // setCategories,
-    // lastFilter,
-    // setLastFilter,
+
     setRecipes,
     recipes,
     isLoading,
 
-  }), [radio, searchValue,
-    //  categories, lastFilter,
+  }), [
+    radio, searchValue,
     setRadio, setSearchValue,
     setRecipes, recipes,
     isLoading,
