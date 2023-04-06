@@ -9,12 +9,14 @@ function AppProvider({ children }) {
   const [searchValue, setSearchValue] = useState('');
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [lastFilter, setLastFilter] = useState('');
+  const [recipe, setRecipe] = useState('');
 
   // useEffect(() => {
-  //   if (meals === null || drinks) {
-  //     globalThis.alert(errorMessage);
-  //   }
-  // }, [meals, drinks]);
+  //   console.log(meals);
+  //   fetchMeals();
+  // }, [radio, searchValue]);
 
   const value = useMemo(() => ({
     email,
@@ -29,8 +31,14 @@ function AppProvider({ children }) {
     radio,
     drinks,
     setDrinks,
+    categories,
+    setCategories,
+    lastFilter,
+    setLastFilter,
+    setRecipe,
+    recipe,
 
-  }), [email, password, radio, searchValue, meals, drinks]);
+  }), [email, password, radio, searchValue, meals, drinks, categories, lastFilter]);
 
   return (
     <AppContext.Provider value={ value }>{children}</AppContext.Provider>
