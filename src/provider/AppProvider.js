@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
+import { errorMessage } from '../helpers/ErrorMessage';
 
 function AppProvider({ children }) {
   const [email, setEmail] = useState('');
@@ -11,9 +12,10 @@ function AppProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
 
   // useEffect(() => {
-  //   console.log(meals);
-  //   fetchMeals();
-  // }, [radio, searchValue]);
+  //   if (meals === null || drinks) {
+  //     globalThis.alert(errorMessage);
+  //   }
+  // }, [meals, drinks]);
 
   const value = useMemo(() => ({
     email,
