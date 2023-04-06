@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Header from './Header';
 import Footer from './Footer';
-import { defaultSearch, filterByCategory, getCategories }
+import { fetchData }
   from '../services/FetchFunctions';
+import { MEALS_BRIEF_URL, MEALS_CATEGORY_URL, MEALS_NAME_URL } from '../utils/constants';
 
 function MealCard() {
   const { drinks,
@@ -18,9 +19,9 @@ function MealCard() {
   const five = 5;
 
   const getMeals = async () => {
-    const api = await defaultSearch('meals');
+    const api = await fetchData(MEALS_NAME_URL);
     setRecipe(api.meals);
-    const foundCategories = await getCategories('meals');
+    const foundCategories = await fetchData(MEALS_CATEGORY_URL);
     setCategories(foundCategories.meals);
   };
   const allButtonClick = () => {
@@ -30,6 +31,7 @@ function MealCard() {
 
   useEffect(() => {
     getMeals();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filteredCategory = async (category) => {
@@ -37,7 +39,7 @@ function MealCard() {
       getMeals();
       setLastFilter('');
     } else {
-      const recipes = await filterByCategory(category, 'meals');
+      const recipes = await fetchData(MEALS_BRIEF_URL, category);
       setRecipe(recipes.meals);
       setLastFilter(category);
     }

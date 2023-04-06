@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Header from './Header';
 import Footer from './Footer';
-import { defaultSearch, filterByCategory, getCategories }
-  from '../services/FetchFunctions';
+import { fetchData } from '../services/FetchFunctions';
+import {
+  DRINKS_BRIEF_URL,
+  DRINKS_CATEGORY_URL,
+  DRINKS_NAME_URL,
+} from '../utils/constants';
 
 function DrinkCards() {
   const { drinks,
@@ -18,9 +22,9 @@ function DrinkCards() {
   const five = 5;
 
   const getDrinks = async () => {
-    const api = await defaultSearch();
+    const api = await fetchData(DRINKS_NAME_URL);
     setRecipe(api.drinks);
-    const foundCategories = await getCategories();
+    const foundCategories = await fetchData(DRINKS_CATEGORY_URL);
     setCategories(foundCategories.drinks);
   };
 
@@ -38,7 +42,7 @@ function DrinkCards() {
       getDrinks();
       setLastFilter('');
     } else {
-      const recipes = await filterByCategory(category, '');
+      const recipes = await fetchData(DRINKS_BRIEF_URL, category);
       setRecipe(recipes.drinks);
       setLastFilter(category);
     }
