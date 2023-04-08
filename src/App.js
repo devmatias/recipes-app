@@ -16,8 +16,18 @@ function App() {
       <Switch>
         <Route path="/drinks/:id-da-receita/in-progress" component={ Drinks } />
         <Route path="/meals/:id-da-receita/in-progress" component={ Meals } />
-        <Route path="/drinks/:id-da-receita" component={ RecipeDetails } />
-        <Route path="/meals/:id-da-receita" component={ RecipeDetails } />
+        <Route
+          exact
+          path="/meals/:id"
+          render={ (props) => (
+            <MealsProvider><RecipeDetails { ...props } /></MealsProvider>) }
+        />
+        <Route
+          exact
+          path="/drinks/:id"
+          render={ (props) => (
+            <DrinksProvider><RecipeDetails { ...props } /></DrinksProvider>) }
+        />
         <Route path="/favorite-recipes" component={ FavoriteRecipes } />
         <Route path="/done-recipes" component={ DoneRecipes } />
         <Route path="/profile" component={ Profile } />

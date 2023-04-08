@@ -16,7 +16,9 @@ function Recipes() {
   if (isLoading) {
     return <div>Carregando dados...</div>;
   }
-  const handleRedirectDetails = (id) => history.push(`/${location.pathname}/${id}`);
+  const handleRedirectDetails = (id) => {
+    history.push(`${location.pathname}/${id}`);
+  };
   return (
     <div>
       {
@@ -28,22 +30,25 @@ function Recipes() {
           const id = idMeal || idDrink;
           return index < NUMBER_12
            && (
-             <button
+             <div
                key={ index }
                data-testid={ `${index}-recipe-card` }
-               onClick={ handleRedirectDetails(id) }
              >
                <p
                  data-testid={ `${index}-card-name` }
                >
                  {strRecipe}
                </p>
-               <img
-                 src={ strThumb }
-                 alt={ strRecipe }
-                 data-testid={ `${index}-card-img` }
-               />
-             </button>
+               <button
+                 onClick={ () => handleRedirectDetails(id) }
+               >
+                 <img
+                   src={ strThumb }
+                   alt={ strRecipe }
+                   data-testid={ `${index}-card-img` }
+                 />
+               </button>
+             </div>
            );
         })
 
