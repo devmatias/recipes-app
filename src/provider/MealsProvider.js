@@ -14,6 +14,7 @@ function MealsProvider({ children }) {
     fetchData(MEALS_NAME_URL)
       .then((dataMeals) => {
         setRecipes(dataMeals.meals);
+        console.log(dataMeals.meals);
         setIsLoading(false);
       });
   }, []);
