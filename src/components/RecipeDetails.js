@@ -12,17 +12,17 @@ function RecipeDetails() {
   } = useContext(context);
 
   useEffect(() => {
-    const requestRecipe = async () => {
+    const requestRecipe = async (id) => {
       if (location.pathname.includes('/meals')) {
-        const detailsData = await fetchData(DETAILS_MEALS, idRecipe);
-        return console.log(idRecipe);
+        const detailsData = await fetchData(DETAILS_MEALS, id);
+        return detailsData;
       }
       if (location.pathname.includes('/drinks')) {
-        const detailsData = await fetchData(DETAILS_DRINKS, idRecipe);
-        return detailsData.drinks;
+        const detailsData = await fetchData(DETAILS_DRINKS, id);
+        return detailsData;
       }
     };
-    requestRecipe();
+    requestRecipe(idRecipe);
   }, [idRecipe, location]);
 
   return (
