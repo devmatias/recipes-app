@@ -49,10 +49,8 @@ function SearchBar() {
   return (
     <form>
       <header>
-
         <div>
           <label htmlFor="ingredient">
-            Ingredient
             <input
               type="radio"
               data-testid="ingredient-search-radio"
@@ -60,9 +58,9 @@ function SearchBar() {
               name="radio"
               onChange={ (e) => setRadio(e.target.value) }
             />
+            Ingredient
           </label>
           <label htmlFor="name">
-            Name
             <input
               type="radio"
               data-testid="name-search-radio"
@@ -70,9 +68,9 @@ function SearchBar() {
               name="radio"
               onChange={ (e) => setRadio(e.target.value) }
             />
+            Name
           </label>
           <label htmlFor="firstLetter">
-            First Letter
             <input
               type="radio"
               data-testid="first-letter-search-radio"
@@ -80,6 +78,7 @@ function SearchBar() {
               name="radio"
               onChange={ (e) => setRadio(e.target.value) }
             />
+            First Letter
           </label>
         </div>
         <button
