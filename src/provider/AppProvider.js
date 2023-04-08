@@ -1,36 +1,17 @@
 import { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import AppContext from '../context/AppContext';
+import { AppContext } from '../context/Context';
 
 function AppProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [radio, setRadio] = useState('');
-  const [searchValue, setSearchValue] = useState('');
-  const [meals, setMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
-
-  // useEffect(() => {
-  //   if (meals === null || drinks) {
-  //     globalThis.alert(errorMessage);
-  //   }
-  // }, [meals, drinks]);
 
   const value = useMemo(() => ({
     email,
     password,
     setPassword,
     setEmail,
-    setRadio,
-    setSearchValue,
-    searchValue,
-    setMeals,
-    meals,
-    radio,
-    drinks,
-    setDrinks,
-
-  }), [email, password, radio, searchValue, meals, drinks]);
+  }), [email, password]);
 
   return (
     <AppContext.Provider value={ value }>{children}</AppContext.Provider>
