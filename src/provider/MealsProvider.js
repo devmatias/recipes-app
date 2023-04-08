@@ -9,6 +9,7 @@ function MealsProvider({ children }) {
   const [searchValue, setSearchValue] = useState('');
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [idRecipe, setIdRecipe] = useState('');
 
   useEffect(() => {
     fetchData(MEALS_NAME_URL)
@@ -31,12 +32,14 @@ function MealsProvider({ children }) {
     setRecipes,
     recipes,
     isLoading,
+    idRecipe,
+    setIdRecipe,
 
   }), [
     radio, searchValue,
     setRadio, setSearchValue,
     setRecipes, recipes,
-    isLoading,
+    isLoading, idRecipe, setIdRecipe,
   ]);
 
   return (

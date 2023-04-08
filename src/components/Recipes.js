@@ -11,6 +11,7 @@ function Recipes() {
   const {
     recipes,
     isLoading,
+    setIdRecipe,
   } = useContext(context);
 
   if (isLoading) {
@@ -18,6 +19,7 @@ function Recipes() {
   }
   const handleRedirectDetails = (id) => {
     history.push(`${location.pathname}/${id}`);
+    setIdRecipe(id);
   };
   return (
     <div>
