@@ -49,7 +49,6 @@ function SearchBar() {
   return (
     <form>
       <header>
-
         <div>
           <label htmlFor="ingredient">
             <input
