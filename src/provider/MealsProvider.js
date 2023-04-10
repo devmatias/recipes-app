@@ -2,30 +2,39 @@ import { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { MealsContext } from '../context/Context';
 import { fetchData } from '../services/FetchFunctions';
-import { MEALS_NAME_URL } from '../utils/constants';
+import { MEALS_CATEGORY, MEALS_NAME_URL } from '../utils/constants';
 
 function MealsProvider({ children }) {
   const [radio, setRadio] = useState('');
   const [searchValue, setSearchValue] = useState('');
+  const [allRecipes, setAllRecipes] = useState('');
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [dataRecipe, setDataRecipe] = useState([]);
+  const [idRecipe, setIdRecipe] = useState('');
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetchData(MEALS_NAME_URL)
-      .then((dataMeals) => {
-        setRecipes(dataMeals.meals);
+    const recipesData = fetchData(MEALS_NAME_URL)
+      .then((dataRecipes) => {
+        setAllRecipes(dataRecipes.meals);
+        setRecipes(dataRecipes.meals);
+      });
+    const categoriesData = fetchData(MEALS_CATEGORY)
+      .then((catData) => {
+        setCategories(catData.meals);
+      });
+    Promise.all([recipesData, categoriesData])
+      .then(() => {
         setIsLoading(false);
       });
   }, []);
 
-  // useEffect(() => {
-
-  // }, [recipes]);
-
   const value = useMemo(() => ({
     setRadio,
+    setCategories,
     setSearchValue,
+    categories,
     searchValue,
     radio,
     setRecipes,
@@ -33,14 +42,20 @@ function MealsProvider({ children }) {
     isLoading,
     dataRecipe,
     setDataRecipe,
-
+    idRecipe,
+    setIdRecipe,
+    allRecipes,
   }), [
-    radio, searchValue,
+    radio,
+    searchValue,
+    categories,
     setRadio, setSearchValue,
     setRecipes, recipes,
     isLoading,
     dataRecipe,
     setDataRecipe,
+    isLoading, idRecipe, setIdRecipe,
+    allRecipes,
   ]);
 
   return (

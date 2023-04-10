@@ -1,27 +1,39 @@
 import { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { DrinksContext } from '../context/Context';
-import { DRINKS_NAME_URL } from '../utils/constants';
+import { DRINKS_CATEGORY, DRINKS_NAME_URL } from '../utils/constants';
 import { fetchData } from '../services/FetchFunctions';
 
 function DrinksProvider({ children }) {
   const [radio, setRadio] = useState('');
   const [searchValue, setSearchValue] = useState('');
+  const [allRecipes, setAllRecipes] = useState('');
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [dataRecipe, setDataRecipe] = useState([]);
-  const [recommendationMeals, setRecommendationMeals] = ([]);
+  const [idRecipe, setIdRecipe] = useState('');
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetchData(DRINKS_NAME_URL)
-      .then((dataMeals) => {
-        setRecipes(dataMeals.drinks);
+    const recipesData = fetchData(DRINKS_NAME_URL)
+      .then((dataRecipes) => {
+        setAllRecipes(dataRecipes.drinks);
+        setRecipes(dataRecipes.drinks);
+      });
+    const categoriesData = fetchData(DRINKS_CATEGORY)
+      .then((catData) => {
+        setCategories(catData.drinks);
+      });
+    Promise.all([recipesData, categoriesData])
+      .then(() => {
         setIsLoading(false);
       });
   }, []);
 
   const value = useMemo(() => ({
     setRadio,
+    categories,
+    setCategories,
     setSearchValue,
     searchValue,
     radio,
@@ -30,9 +42,13 @@ function DrinksProvider({ children }) {
     isLoading,
     dataRecipe,
     setDataRecipe,
+    idRecipe,
+    setIdRecipe,
+    allRecipes,
   }), [
     setRadio,
     setSearchValue,
+    categories,
     searchValue,
     radio,
     setRecipes,
@@ -40,6 +56,9 @@ function DrinksProvider({ children }) {
     isLoading,
     dataRecipe,
     setDataRecipe,
+    idRecipe,
+    setIdRecipe,
+    allRecipes,
   ]);
 
   return (
