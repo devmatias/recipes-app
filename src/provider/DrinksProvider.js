@@ -10,6 +10,7 @@ function DrinksProvider({ children }) {
   const [allRecipes, setAllRecipes] = useState('');
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [dataRecipe, setDataRecipe] = useState([]);
   const [idRecipe, setIdRecipe] = useState('');
   const [categories, setCategories] = useState([]);
 
@@ -39,6 +40,8 @@ function DrinksProvider({ children }) {
     setRecipes,
     recipes,
     isLoading,
+    dataRecipe,
+    setDataRecipe,
     idRecipe,
     setIdRecipe,
     allRecipes,
@@ -51,6 +54,8 @@ function DrinksProvider({ children }) {
     setRecipes,
     recipes,
     isLoading,
+    dataRecipe,
+    setDataRecipe,
     idRecipe,
     setIdRecipe,
     allRecipes,
