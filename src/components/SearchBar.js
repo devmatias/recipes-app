@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { requestRecipes } from '../utils/requestRecipes';
 import { handleEmptyListAlert } from '../helpers/ErrorMessage';
-import pathFinder from '../utils/pathFinder';
+import { pathContextFinder } from '../utils/pathFinder';
 
 function SearchBar() {
   const location = useLocation();
   const history = useHistory();
-  const context = pathFinder(location);
+  const context = pathContextFinder(location);
 
   const {
     setRadio,
@@ -22,7 +22,6 @@ function SearchBar() {
       const recipeData = await requestRecipes(radio, location.pathname, searchValue);
       let idRecipe = '';
       if (location.pathname === '/meals') {
-        setRecipes(recipeData);
         idRecipe = recipeData[0].idMeal;
       } else {
         idRecipe = recipeData[0].idDrink;

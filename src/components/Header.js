@@ -3,13 +3,13 @@ import { useContext, useState } from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import pathFinder from '../utils/pathFinder';
+import { pathContextFinder } from '../utils/pathFinder';
 
 function Header() {
   const location = useLocation();
   const history = useHistory();
   const [isSearching, setIsSearching] = useState(false);
-  const context = pathFinder(location);
+  const context = pathContextFinder(location);
 
   const { setSearchValue } = useContext(context);
 

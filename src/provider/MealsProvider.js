@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { MealsContext } from '../context/Context';
 import { fetchData } from '../services/FetchFunctions';
-import { MEALS_NAME_URL } from '../utils/constants';
+import { MEALS_CATEGORY, MEALS_NAME_URL } from '../utils/constants';
 
 function MealsProvider({ children }) {
   const [radio, setRadio] = useState('');
@@ -13,10 +13,16 @@ function MealsProvider({ children }) {
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    fetchData(MEALS_NAME_URL)
+    const recipesData = fetchData(MEALS_NAME_URL)
       .then((dataMeals) => {
         setRecipes(dataMeals.meals);
-        console.log(dataMeals.meals);
+      });
+    const categoriesData = fetchData(MEALS_CATEGORY)
+      .then((categories) => {
+        setCategory(categories.meals);
+      });
+    Promise.all([recipesData, categoriesData])
+      .then(() => {
         setIsLoading(false);
       });
   }, []);

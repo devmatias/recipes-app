@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { DrinksContext } from '../context/Context';
-import { DRINKS_NAME_URL } from '../utils/constants';
+import { DRINKS_CATEGORY, DRINKS_NAME_URL } from '../utils/constants';
 import { fetchData } from '../services/FetchFunctions';
 
 function DrinksProvider({ children }) {
@@ -13,9 +13,17 @@ function DrinksProvider({ children }) {
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    fetchData(DRINKS_NAME_URL)
-      .then((dataMeals) => {
-        setRecipes(dataMeals.drinks);
+    const recipesData = fetchData(DRINKS_NAME_URL)
+      .then((dataDrinks) => {
+        setRecipes(dataDrinks.drinks);
+        setIsLoading(false);
+      });
+    const categoriesData = fetchData(DRINKS_CATEGORY)
+      .then((categories) => {
+        setCategory(categories.drinks);
+      });
+    Promise.all([recipesData, categoriesData])
+      .then(() => {
         setIsLoading(false);
       });
   }, []);

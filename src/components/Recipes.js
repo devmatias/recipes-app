@@ -1,48 +1,67 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { NUMBER_12 } from '../utils/constants';
-import pathFinder from '../utils/pathFinder';
-import { requestCategorys } from '../utils/requestRecipes';
+import { NUMBER_12, NUMBER_5 } from '../utils/constants';
+import {
+  pathContextFinder,
+  pathURLCategoryFinder,
+  pathURLMainFinder,
+} from '../utils/pathFinder';
+import { fetchData } from '../services/FetchFunctions';
 
 function Recipes() {
   const location = useLocation();
   const history = useHistory();
-  const context = pathFinder(location);
+  const context = pathContextFinder(location);
 
   const {
     recipes,
+    setRecipes,
     isLoading,
     setIdRecipe,
     category,
-    setCategory,
   } = useContext(context);
 
-  useEffect(() => {
-    const getCategory = async () => {
-      if (isLoading) {
-        return <div>Carregando dados...</div>;
-      }
-      const request = await requestCategorys(location.pathname);
-      setCategory(request);
-    };
-    getCategory();
-  }, [location, setCategory, isLoading]);
+  if (isLoading) {
+    return <div>Carregando dados...</div>;
+  }
 
   const handleRedirectDetails = (id) => {
     history.push(`${location.pathname}/${id}`);
     setIdRecipe(id);
   };
 
+  const findByCategory = async ({ target: { value } }) => {
+    const dataQuery = await fetchData(pathURLCategoryFinder(location), value);
+    const recipePath = dataQuery.meals || dataQuery.drinks;
+    setRecipes(recipePath);
+  };
+
+  const removeFilters = async () => {
+    const dataQuery = await fetchData(pathURLMainFinder(location));
+    const recipePath = dataQuery.meals || dataQuery.drinks;
+    setRecipes(recipePath);
+  };
+
   return (
     <div>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ removeFilters }
+      >
+        All
+      </button>
       {
         !isLoading && category.map(({ strCategory }, index) => {
           const dataTestIdFilters = `${strCategory}-category-filter`;
-          return (
+          return index < NUMBER_5
+          && (
             <button
               key={ index }
               type="button"
               data-testid={ dataTestIdFilters }
+              onClick={ findByCategory }
+              value={ strCategory }
             >
               {strCategory}
 
