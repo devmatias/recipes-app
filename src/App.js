@@ -14,8 +14,8 @@ function App() {
   return (
     <main>
       <Switch>
-        <Route path="/drinks/:id-da-receita/in-progress" component={ Drinks } />
-        <Route path="/meals/:id-da-receita/in-progress" component={ Meals } />
+        <Route path="/drinks/:id/in-progress" component={ Drinks } />
+        <Route path="/meals/:id/in-progress" component={ Meals } />
         <Route
           exact
           path="/meals/:id"

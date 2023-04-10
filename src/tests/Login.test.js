@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Login from '../pages/Login';
-import AppContext from '../context/AppContext';
+import { AppContext } from '../context/Context';
 import { renderWithRouter } from './renderWith';
 import AppProvider from '../provider/AppProvider';
 import App from '../App';

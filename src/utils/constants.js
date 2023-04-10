@@ -11,4 +11,5 @@ export const DRINKS_CATEGORY_URL = 'https://www.thecocktaildb.com/api/json/v1/1/
 export const DRINKS_BRIEF_URL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 export const DETAILS_MEALS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 export const DETAILS_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+
 export const NUMBER_12 = 12;
