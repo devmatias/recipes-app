@@ -7,20 +7,21 @@ import { fetchData } from '../services/FetchFunctions';
 function DrinksProvider({ children }) {
   const [radio, setRadio] = useState('');
   const [searchValue, setSearchValue] = useState('');
+  const [allRecipes, setAllRecipes] = useState('');
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [idRecipe, setIdRecipe] = useState('');
-  const [category, setCategory] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const recipesData = fetchData(DRINKS_NAME_URL)
-      .then((dataDrinks) => {
-        setRecipes(dataDrinks.drinks);
-        setIsLoading(false);
+      .then((dataRecipes) => {
+        setAllRecipes(dataRecipes.drinks);
+        setRecipes(dataRecipes.drinks);
       });
     const categoriesData = fetchData(DRINKS_CATEGORY)
-      .then((categories) => {
-        setCategory(categories.drinks);
+      .then((catData) => {
+        setCategories(catData.drinks);
       });
     Promise.all([recipesData, categoriesData])
       .then(() => {
@@ -30,8 +31,8 @@ function DrinksProvider({ children }) {
 
   const value = useMemo(() => ({
     setRadio,
-    category,
-    setCategory,
+    categories,
+    setCategories,
     setSearchValue,
     searchValue,
     radio,
@@ -40,10 +41,11 @@ function DrinksProvider({ children }) {
     isLoading,
     idRecipe,
     setIdRecipe,
+    allRecipes,
   }), [
     setRadio,
     setSearchValue,
-    category,
+    categories,
     searchValue,
     radio,
     setRecipes,
@@ -51,6 +53,7 @@ function DrinksProvider({ children }) {
     isLoading,
     idRecipe,
     setIdRecipe,
+    allRecipes,
   ]);
 
   return (

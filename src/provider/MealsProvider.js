@@ -7,19 +7,21 @@ import { MEALS_CATEGORY, MEALS_NAME_URL } from '../utils/constants';
 function MealsProvider({ children }) {
   const [radio, setRadio] = useState('');
   const [searchValue, setSearchValue] = useState('');
+  const [allRecipes, setAllRecipes] = useState('');
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [idRecipe, setIdRecipe] = useState('');
-  const [category, setCategory] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const recipesData = fetchData(MEALS_NAME_URL)
-      .then((dataMeals) => {
-        setRecipes(dataMeals.meals);
+      .then((dataRecipes) => {
+        setAllRecipes(dataRecipes.meals);
+        setRecipes(dataRecipes.meals);
       });
     const categoriesData = fetchData(MEALS_CATEGORY)
-      .then((categories) => {
-        setCategory(categories.meals);
+      .then((catData) => {
+        setCategories(catData.meals);
       });
     Promise.all([recipesData, categoriesData])
       .then(() => {
@@ -27,15 +29,11 @@ function MealsProvider({ children }) {
       });
   }, []);
 
-  // useEffect(() => {
-
-  // }, [recipes]);
-
   const value = useMemo(() => ({
     setRadio,
-    setCategory,
+    setCategories,
     setSearchValue,
-    category,
+    categories,
     searchValue,
     radio,
     setRecipes,
@@ -43,14 +41,15 @@ function MealsProvider({ children }) {
     isLoading,
     idRecipe,
     setIdRecipe,
-
+    allRecipes,
   }), [
     radio,
     searchValue,
-    category,
+    categories,
     setRadio, setSearchValue,
     setRecipes, recipes,
     isLoading, idRecipe, setIdRecipe,
+    allRecipes,
   ]);
 
   return (

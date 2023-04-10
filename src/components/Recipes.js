@@ -1,16 +1,16 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { NUMBER_12, NUMBER_5 } from '../utils/constants';
 import {
   pathContextFinder,
   pathURLCategoryFinder,
-  pathURLMainFinder,
 } from '../utils/pathFinder';
 import { fetchData } from '../services/FetchFunctions';
 
 function Recipes() {
   const location = useLocation();
   const history = useHistory();
+  const [filter, setFilter] = useState([]);
   const context = pathContextFinder(location);
 
   const {
@@ -18,7 +18,8 @@ function Recipes() {
     setRecipes,
     isLoading,
     setIdRecipe,
-    category,
+    categories,
+    allRecipes,
   } = useContext(context);
 
   if (isLoading) {
@@ -31,15 +32,19 @@ function Recipes() {
   };
 
   const findByCategory = async ({ target: { value } }) => {
-    const dataQuery = await fetchData(pathURLCategoryFinder(location), value);
-    const recipePath = dataQuery.meals || dataQuery.drinks;
-    setRecipes(recipePath);
+    if (filter.length > 0 && filter.includes(value)) {
+      setFilter([]);
+      setRecipes(allRecipes);
+    } else {
+      const dataQuery = await fetchData(pathURLCategoryFinder(location), value);
+      const recipePath = dataQuery.meals || dataQuery.drinks;
+      setRecipes(recipePath);
+      setFilter([value]);
+    }
   };
 
   const removeFilters = async () => {
-    const dataQuery = await fetchData(pathURLMainFinder(location));
-    const recipePath = dataQuery.meals || dataQuery.drinks;
-    setRecipes(recipePath);
+    setRecipes(allRecipes);
   };
 
   return (
@@ -52,7 +57,7 @@ function Recipes() {
         All
       </button>
       {
-        !isLoading && category.map(({ strCategory }, index) => {
+        !isLoading && categories.map(({ strCategory }, index) => {
           const dataTestIdFilters = `${strCategory}-category-filter`;
           return index < NUMBER_5
           && (
@@ -101,7 +106,6 @@ function Recipes() {
         })
       }
       <div />
-      <button>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</button>
     </div>
 
   );
