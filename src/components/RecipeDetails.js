@@ -3,6 +3,7 @@ import { useEffect, useContext } from 'react';
 import { fetchData } from '../services/FetchFunctions';
 import { pathContextFinder } from '../utils/pathFinder';
 import { DETAILS_DRINKS, DETAILS_MEALS } from '../utils/constants';
+import '../styles/RecipeDetails.css';
 
 function RecipeDetails() {
   const location = useLocation();
@@ -81,106 +82,6 @@ function RecipeDetails() {
                     </li>
                   ))
                 }
-                {/* <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient2}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient3}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient4}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient5}
-
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient6}
-
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient7}
-
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient8}
-
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient9}
-
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient10}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient11}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient12}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient13}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient14}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient15}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient16}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient17}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient18}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient19}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient20}
-                </li> */}
               </ul>
               <p data-testid="instructions">{strInstructions}</p>
               {
@@ -194,6 +95,13 @@ function RecipeDetails() {
                   />
                 )
               }
+              <button
+                className="startRecipe"
+                data-testid="start-recipe-btn"
+              >
+                Start Recipe
+              </button>
+
             </div>
           );
         })}
