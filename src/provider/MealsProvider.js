@@ -9,13 +9,12 @@ function MealsProvider({ children }) {
   const [searchValue, setSearchValue] = useState('');
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [idRecipe, setIdRecipe] = useState('');
+  const [dataRecipe, setDataRecipe] = useState([]);
 
   useEffect(() => {
     fetchData(MEALS_NAME_URL)
       .then((dataMeals) => {
         setRecipes(dataMeals.meals);
-        console.log(dataMeals.meals);
         setIsLoading(false);
       });
   }, []);
@@ -32,14 +31,16 @@ function MealsProvider({ children }) {
     setRecipes,
     recipes,
     isLoading,
-    idRecipe,
-    setIdRecipe,
+    dataRecipe,
+    setDataRecipe,
 
   }), [
     radio, searchValue,
     setRadio, setSearchValue,
     setRecipes, recipes,
-    isLoading, idRecipe, setIdRecipe,
+    isLoading,
+    dataRecipe,
+    setDataRecipe,
   ]);
 
   return (
