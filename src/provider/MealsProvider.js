@@ -54,7 +54,7 @@ function MealsProvider({ children }) {
     isLoading,
     dataRecipe,
     setDataRecipe,
-    isLoading, idRecipe, setIdRecipe,
+    idRecipe, setIdRecipe,
     allRecipes,
   ]);
 

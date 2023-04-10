@@ -1,13 +1,13 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 import { fetchData } from '../services/FetchFunctions';
-import pathFinder from '../utils/pathFinder';
+import { pathContextFinder } from '../utils/pathFinder';
 import { DETAILS_DRINKS, DETAILS_MEALS } from '../utils/constants';
 
 function RecipeDetails() {
   const location = useLocation();
   const { id } = useParams();
-  const context = pathFinder(location);
+  const context = pathContextFinder(location);
   const {
     setDataRecipe,
     dataRecipe,
