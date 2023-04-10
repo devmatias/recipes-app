@@ -10,6 +10,7 @@ function DrinksProvider({ children }) {
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [idRecipe, setIdRecipe] = useState('');
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     fetchData(DRINKS_NAME_URL)
@@ -21,6 +22,8 @@ function DrinksProvider({ children }) {
 
   const value = useMemo(() => ({
     setRadio,
+    category,
+    setCategory,
     setSearchValue,
     searchValue,
     radio,
@@ -32,6 +35,7 @@ function DrinksProvider({ children }) {
   }), [
     setRadio,
     setSearchValue,
+    category,
     searchValue,
     radio,
     setRecipes,

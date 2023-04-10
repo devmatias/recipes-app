@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { NUMBER_12 } from '../utils/constants';
 import pathFinder from '../utils/pathFinder';
+import { requestCategorys } from '../utils/requestRecipes';
 
 function Recipes() {
   const location = useLocation();
@@ -12,17 +13,43 @@ function Recipes() {
     recipes,
     isLoading,
     setIdRecipe,
+    category,
+    setCategory,
   } = useContext(context);
 
-  if (isLoading) {
-    return <div>Carregando dados...</div>;
-  }
+  useEffect(() => {
+    const getCategory = async () => {
+      if (isLoading) {
+        return <div>Carregando dados...</div>;
+      }
+      const request = await requestCategorys(location.pathname);
+      setCategory(request);
+    };
+    getCategory();
+  }, [location, setCategory, isLoading]);
+
   const handleRedirectDetails = (id) => {
     history.push(`${location.pathname}/${id}`);
     setIdRecipe(id);
   };
+
   return (
     <div>
+      {
+        !isLoading && category.map(({ strCategory }, index) => {
+          const dataTestIdFilters = `${strCategory}-category-filter`;
+          return (
+            <button
+              key={ index }
+              type="button"
+              data-testid={ dataTestIdFilters }
+            >
+              {strCategory}
+
+            </button>
+          );
+        })
+      }
       {
         !isLoading && recipes.map((recipe, index) => {
           const { strMeal, strDrink, strDrinkThumb,
@@ -53,9 +80,11 @@ function Recipes() {
              </div>
            );
         })
-
       }
+      <div />
+      <button>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</button>
     </div>
+
   );
 }
 

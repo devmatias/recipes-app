@@ -10,6 +10,7 @@ function MealsProvider({ children }) {
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [idRecipe, setIdRecipe] = useState('');
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     fetchData(MEALS_NAME_URL)
@@ -26,7 +27,9 @@ function MealsProvider({ children }) {
 
   const value = useMemo(() => ({
     setRadio,
+    setCategory,
     setSearchValue,
+    category,
     searchValue,
     radio,
     setRecipes,
@@ -36,7 +39,9 @@ function MealsProvider({ children }) {
     setIdRecipe,
 
   }), [
-    radio, searchValue,
+    radio,
+    searchValue,
+    category,
     setRadio, setSearchValue,
     setRecipes, recipes,
     isLoading, idRecipe, setIdRecipe,
