@@ -17,7 +17,7 @@ function RecipeDetails() {
     const requestRecipe = async (params) => {
       if (location.pathname.includes('/meals')) {
         const detailsData = await fetchData(DETAILS_MEALS, params);
-        // console.log(detailsData);
+        console.log(detailsData);
         setDataRecipe(detailsData.meals);
         return detailsData;
       }
@@ -40,13 +40,15 @@ function RecipeDetails() {
           } = recipe;
           const strRecipe = strMeal || strDrink;
           const strThumb = strMealThumb || strDrinkThumb;
-          const strDescription = strCategory || strAlcoholic;
-          // const ids = idMeal || idDrink;
+          const strDescription = strAlcoholic || strCategory;
           const ingredients = Object.entries(recipe)
-            .filter((element) => (element[0]
-              .includes('strIngredient')
-              || element[0]
-                .includes('strMeasure')) && element[1]);
+            .filter((element) => element[0]
+              .includes('strIngredient') && element[1] !== ' ' && element[1]);
+
+          const measures = Object.entries(recipe)
+            .filter((element) => element[0]
+              .includes('strMeasure') && element[1] !== ' ' && element[1]);
+
           console.log(ingredients);
           return (
             <div key={ index }>
@@ -59,14 +61,24 @@ function RecipeDetails() {
               <h2 data-testid="recipe-category">{strDescription}</h2>
               <ul>
                 {
-                  ingredients.map((ingredient, index1) => (
+                  ingredients.map((ingredient, indexIngredient) => (
                     <li
-                      key={ index1 }
-                      data-testid={ `${index1}-ingredient-name-and-measure` }
+                      key={ indexIngredient }
+                      data-testid={ `${indexIngredient}-ingredient-name-and-measure` }
                     >
                       {ingredient[1]}
                     </li>
 
+                  ))
+                }
+                {
+                  measures.map((measure, indexMeasure) => (
+                    <li
+                      key={ indexMeasure }
+                      data-testid={ `${indexMeasure}-ingredient-name-and-measure` }
+                    >
+                      {measure[1]}
+                    </li>
                   ))
                 }
                 {/* <li
