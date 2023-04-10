@@ -10,6 +10,7 @@ function DrinksProvider({ children }) {
   const [recipes, setRecipes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [dataRecipe, setDataRecipe] = useState([]);
+  const [recommendationMeals, setRecommendationMeals] = ([]);
 
   useEffect(() => {
     fetchData(DRINKS_NAME_URL)

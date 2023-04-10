@@ -17,7 +17,7 @@ function RecipeDetails() {
     const requestRecipe = async (params) => {
       if (location.pathname.includes('/meals')) {
         const detailsData = await fetchData(DETAILS_MEALS, params);
-        console.log(detailsData);
+        // console.log(detailsData);
         setDataRecipe(detailsData.meals);
         return detailsData;
       }
@@ -36,21 +36,18 @@ function RecipeDetails() {
       { dataRecipe
         && dataRecipe.map((recipe, index) => {
           const { idMeal, strMeal, strDrink, strDrinkThumb,
-            strMealThumb, strCategory, strIngredient1,
-            strIngredient2, strIngredient3,
-            strIngredient4, strIngredient5,
-            strIngredient6, strIngredient7,
-            strIngredient8, strIngredient9,
-            strIngredient10, strIngredient11,
-            strIngredient12, strIngredient13,
-            strIngredient14, strIngredient15,
-            strIngredient16, strIngredient17,
-            strIngredient18, strIngredient19,
-            strIngredient20, strInstructions, strYoutube,
+            strMealThumb, strCategory, strInstructions, strYoutube, strAlcoholic,
           } = recipe;
           const strRecipe = strMeal || strDrink;
           const strThumb = strMealThumb || strDrinkThumb;
+          const strDescription = strCategory || strAlcoholic;
           // const ids = idMeal || idDrink;
+          const ingredients = Object.entries(recipe)
+            .filter((element) => (element[0]
+              .includes('strIngredient')
+              || element[0]
+                .includes('strMeasure')) && element[1]);
+          console.log(ingredients);
           return (
             <div key={ index }>
               <img
@@ -59,15 +56,20 @@ function RecipeDetails() {
                 alt={ strRecipe }
               />
               <h1 data-testid="recipe-title">{strRecipe}</h1>
-              <h2 data-testid="recipe-category">{strCategory}</h2>
+              <h2 data-testid="recipe-category">{strDescription}</h2>
               <ul>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient1}
+                {
+                  ingredients.map((ingredient, index1) => (
+                    <li
+                      key={ index1 }
+                      data-testid={ `${index1}-ingredient-name-and-measure` }
+                    >
+                      {ingredient[1]}
+                    </li>
 
-                </li>
-                <li
+                  ))
+                }
+                {/* <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient2}
@@ -166,7 +168,7 @@ function RecipeDetails() {
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient20}
-                </li>
+                </li> */}
               </ul>
               <p data-testid="instructions">{strInstructions}</p>
               {
