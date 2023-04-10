@@ -35,7 +35,7 @@ function RecipeDetails() {
       <h1> Recipe Details</h1>
       { dataRecipe
         && dataRecipe.map((recipe, index) => {
-          const { idMeal, idDrink, strMeal, strDrink, strDrinkThumb,
+          const { idMeal, strMeal, strDrink, strDrinkThumb,
             strMealThumb, strCategory, strIngredient1,
             strIngredient2, strIngredient3,
             strIngredient4, strIngredient5,
@@ -50,7 +50,7 @@ function RecipeDetails() {
           } = recipe;
           const strRecipe = strMeal || strDrink;
           const strThumb = strMealThumb || strDrinkThumb;
-          // const id = idMeal || idDrink;
+          // const ids = idMeal || idDrink;
           return (
             <div key={ index }>
               <img
@@ -116,77 +116,70 @@ function RecipeDetails() {
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient10}
-
                 </li>
                 <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient11}
-
                 </li>
                 <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient12}
-
                 </li>
                 <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient13}
-
                 </li>
                 <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient14}
-
                 </li>
                 <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient15}
-
                 </li>
                 <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient16}
-
                 </li>
                 <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient17}
-
                 </li>
                 <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient18}
-
                 </li>
                 <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient19}
-
                 </li>
                 <li
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {strIngredient20}
-
                 </li>
               </ul>
               <p data-testid="instructions">{strInstructions}</p>
-              <iframe
-                data-testid="video"
-                width="420"
-                height="315"
-                src={ strYoutube }
-                title={ strRecipe }
-              />
+              {
+                location.pathname === `/meals/${idMeal}` && (
+                  <iframe
+                    data-testid="video"
+                    width="420"
+                    height="315"
+                    src={ `https://www.youtube.com/embed/${strYoutube}` }
+                    title={ strRecipe }
+                  />
+                )
+              }
             </div>
           );
         })}
