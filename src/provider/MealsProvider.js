@@ -19,6 +19,7 @@ function MealsProvider({ children }) {
       .then((dataRecipes) => {
         setAllRecipes(dataRecipes.meals);
         setRecipes(dataRecipes.meals);
+        console.log(dataRecipes.meals);
       });
     const categoriesData = fetchData(MEALS_CATEGORY)
       .then((catData) => {
