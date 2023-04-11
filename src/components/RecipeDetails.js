@@ -2,7 +2,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 import { fetchData } from '../services/FetchFunctions';
 import { pathContextFinder } from '../utils/pathFinder';
-import { DETAILS_DRINKS, DETAILS_MEALS } from '../utils/constants';
+import { DETAILS_DRINKS, DETAILS_MEALS, MEALS_NAME_URL, DRINKS_NAME_URL } from '../utils/constants';
 import '../styles/RecipeDetails.css';
 
 function RecipeDetails() {
@@ -12,13 +12,16 @@ function RecipeDetails() {
   const {
     setDataRecipe,
     dataRecipe,
+    // recommendationMeals,
+    setRecommendationMeals,
+    // recommendationDrinks,
+    setRecommendationDrinks,
   } = useContext(context);
 
   useEffect(() => {
     const requestRecipe = async (params) => {
       if (location.pathname.includes('/meals')) {
         const detailsData = await fetchData(DETAILS_MEALS, params);
-        console.log(detailsData);
         setDataRecipe(detailsData.meals);
         return detailsData;
       }
@@ -29,7 +32,23 @@ function RecipeDetails() {
       }
     };
     requestRecipe(id);
-  }, [id, location, setDataRecipe]);
+  }, [id, location, setDataRecipe, setRecommendationDrinks, setRecommendationMeals]);
+
+  useEffect(() => {
+    const recommendationRecipes = async () => {
+      if (location.pathname.includes('/drinks')) {
+        const recommendationData = await fetchData(MEALS_NAME_URL);
+        setRecommendationMeals(recommendationData);
+        console.log(recommendationData);
+      }
+      if (location.pathname.includes('/meals')) {
+        const recommendationData = await fetchData(DRINKS_NAME_URL);
+        setRecommendationDrinks(recommendationData);
+        console.log(recommendationData);
+      }
+    };
+    recommendationRecipes();
+  }, [location, setRecommendationDrinks, setRecommendationMeals]);
 
   return (
     <>
@@ -50,7 +69,6 @@ function RecipeDetails() {
             .filter((element) => element[0]
               .includes('strMeasure') && element[1] !== ' ' && element[1]);
 
-          console.log(ingredients);
           return (
             <div key={ index }>
               <img
