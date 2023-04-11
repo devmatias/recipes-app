@@ -4,13 +4,14 @@ import userEvent from '@testing-library/user-event';
 import Header from '../components/Header';
 import renderWithRouter from '../renderWithRouter';
 import AppProvider from '../provider/AppProvider';
+import AllProviders from '../AllProviders';
 
 describe('Testando o componente <Header/>', () => {
   it('Teste para ver se os elementos estão na página', () => {
-    render(
-      <AppProvider>
+    renderWithRouter(
+      <AllProviders>
         <Header />
-      </AppProvider>,
+      </AllProviders>,
     );
 
     const profileIcon = screen.getByTestId('profile-top-btn');
@@ -20,11 +21,11 @@ describe('Testando o componente <Header/>', () => {
     expect(searchButton).toBeVisible();
   });
 
-  it('Redirecionamento para profile', () => {
+  it('Redirecionamento para profile', async () => {
     const { history } = renderWithRouter(
-      <AppProvider>
+      <AllProviders>
         <Header />
-      </AppProvider>,
+      </AllProviders>,
     );
 
     const profileIcon = screen.getByTestId('profile-top-btn');
@@ -36,9 +37,9 @@ describe('Testando o componente <Header/>', () => {
 
   it('Testa se ao clicar no botao a barra de procura aparece e se clicar novamente desaparece', () => {
     render(
-      <AppProvider>
+      <AllProviders>
         <Header />
-      </AppProvider>,
+      </AllProviders>,
     );
 
     const searchButton = screen.getByTestId('search-top-btn');

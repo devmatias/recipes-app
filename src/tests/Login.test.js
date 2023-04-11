@@ -2,17 +2,16 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Login from '../pages/Login';
-import { AppContext } from '../context/Context';
 import { renderWithRouter } from './renderWith';
-import AppProvider from '../provider/AppProvider';
 import App from '../App';
+import AllProviders from '../AllProviders';
 
 describe('Login', () => {
   it('should enable button only if email and password are valid', () => {
     render(
-      <AppContext.Provider value={ { email: '', setEmail: jest.fn(), password: '', setPassword: jest.fn() } }>
+      <AllProviders>
         <Login />
-      </AppContext.Provider>,
+      </AllProviders>,
     );
 
     const emailInput = screen.getByTestId('email-input');
@@ -39,9 +38,9 @@ describe('Login', () => {
   // const initialEntries = ['/meals'];
   it('should save email to local storage and redirect to meals page when button is clicked', async () => {
     const { history } = renderWithRouter(
-      <AppProvider>
+      <AllProviders>
         <App />
-      </AppProvider>,
+      </AllProviders>,
 
     );
 
