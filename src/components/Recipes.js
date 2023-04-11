@@ -12,7 +12,7 @@ function Recipes() {
   const history = useHistory();
   const [filter, setFilter] = useState([]);
   const context = pathContextFinder(location);
-
+  console.log(location);
   const {
     recipes,
     setRecipes,
