@@ -1,10 +1,14 @@
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { fetchData } from '../services/FetchFunctions';
 import { pathContextFinder } from '../utils/pathFinder';
 import { DETAILS_DRINKS, DETAILS_MEALS,
   MEALS_NAME_URL, DRINKS_NAME_URL } from '../utils/constants';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import '../styles/RecipeDetails.css';
+
+const copy = require('clipboard-copy');
 
 function RecipeDetails() {
   const location = useLocation();
@@ -17,6 +21,7 @@ function RecipeDetails() {
     setRecommendationMeals,
     setRecommendationDrinks,
   } = useContext(context);
+  const [clickShare, setClickShare] = useState(false);
 
   useEffect(() => {
     const requestRecipe = async (params) => {
@@ -51,6 +56,11 @@ function RecipeDetails() {
   const handleStartButton = () => {
     console.log('clicou');
     history.push(`${location.pathname}/in-progress`);
+  };
+
+  const handleShareButton = () => {
+    copy(`http://localhost:3000${location.pathname}`);
+    setClickShare(true);
   };
 
   return (
@@ -116,14 +126,40 @@ function RecipeDetails() {
                   />
                 )
               }
-              <button
-                className="startRecipe"
-                data-testid="start-recipe-btn"
-                onClick={ () => handleStartButton() }
-              >
-                Start Recipe
-              </button>
+              <section>
+                <button
+                  className="startRecipe"
+                  data-testid="start-recipe-btn"
+                  onClick={ () => handleStartButton() }
+                >
+                  Start Recipe
+                </button>
+              </section>
+              <section>
+                <button
+                  onClick={ () => handleShareButton() }
+                  data-testid="share-btn"
+                >
+                  <img
+                    src={ shareIcon }
+                    alt="Icone de compartilhamento"
+                  />
+                </button>
+                {
+                  clickShare && <h2>Link copied!</h2>
+                }
+              </section>
+              <section>
+                <button
+                  data-testid="favorite-btn"
 
+                >
+                  <img
+                    src={ whiteHeartIcon }
+                    alt="Imagem de coracao"
+                  />
+                </button>
+              </section>
             </div>
           );
         })}

@@ -27,8 +27,9 @@ function Recipes() {
   }
 
   const handleRedirectDetails = (id) => {
-    history.push(`${location.pathname}/${id}`);
     setIdRecipe(id);
+    const type = location.pathname.split('/');
+    history.push(`/${type[1]}/${id}`);
   };
 
   const findByCategory = async ({ target: { value } }) => {
@@ -81,6 +82,7 @@ function Recipes() {
           const strRecipe = strMeal || strDrink;
           const strThumb = strMealThumb || strDrinkThumb;
           const id = idMeal || idDrink;
+          console.log(id);
           return index < NUMBER_12
            && (
              <div
@@ -99,6 +101,7 @@ function Recipes() {
                    src={ strThumb }
                    alt={ strRecipe }
                    data-testid={ `${index}-card-img` }
+                   width="200px"
                  />
                </button>
              </div>
