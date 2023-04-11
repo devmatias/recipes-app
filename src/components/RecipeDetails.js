@@ -4,7 +4,10 @@ import { fetchData } from '../services/FetchFunctions';
 import { pathContextFinder } from '../utils/pathFinder';
 import { DETAILS_DRINKS, DETAILS_MEALS,
   MEALS_NAME_URL, DRINKS_NAME_URL } from '../utils/constants';
+import shareIcon from '../images/shareIcon.svg';
 import '../styles/RecipeDetails.css';
+
+const copy = require('clipboard-copy');
 
 function RecipeDetails() {
   const location = useLocation();
@@ -51,6 +54,12 @@ function RecipeDetails() {
   const handleStartButton = () => {
     console.log('clicou');
     history.push(`${location.pathname}/in-progress`);
+  };
+
+  const handleShareButton = () => {
+    copy(location.pathname);
+    console.log('copiou');
+    return <h1>Link copied!</h1>;
   };
 
   return (
@@ -122,6 +131,20 @@ function RecipeDetails() {
                 onClick={ () => handleStartButton() }
               >
                 Start Recipe
+              </button>
+              <button
+                onClick={ () => handleShareButton() }
+                data-testid="share-btn"
+              >
+                <img
+                  src={ shareIcon }
+                  alt="Icone de compartilhamento"
+                />
+              </button>
+              <button
+                data-testid="favorite-btn"
+              >
+                Favorites
               </button>
 
             </div>
