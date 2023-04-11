@@ -1,4 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 import { fetchData } from '../services/FetchFunctions';
 import { pathContextFinder } from '../utils/pathFinder';
@@ -8,14 +8,13 @@ import '../styles/RecipeDetails.css';
 
 function RecipeDetails() {
   const location = useLocation();
+  const history = useHistory();
   const { id } = useParams();
   const context = pathContextFinder(location);
   const {
     setDataRecipe,
     dataRecipe,
-    // recommendationMeals,
     setRecommendationMeals,
-    // recommendationDrinks,
     setRecommendationDrinks,
   } = useContext(context);
 
@@ -48,6 +47,11 @@ function RecipeDetails() {
     };
     recommendationRecipes();
   }, [id, location, setDataRecipe, setRecommendationDrinks, setRecommendationMeals]);
+
+  const handleStartButton = (idPath) => {
+    console.log('clicou');
+    history.push(`${location.pathname}/${idPath}/in-progress`);
+  };
 
   return (
     <>
@@ -115,6 +119,7 @@ function RecipeDetails() {
               <button
                 className="startRecipe"
                 data-testid="start-recipe-btn"
+                onClick={ () => handleStartButton(id) }
               >
                 Start Recipe
               </button>
