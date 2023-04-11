@@ -1,5 +1,5 @@
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { fetchData } from '../services/FetchFunctions';
 import { pathContextFinder } from '../utils/pathFinder';
 import { DETAILS_DRINKS, DETAILS_MEALS,
@@ -20,6 +20,7 @@ function RecipeDetails() {
     setRecommendationMeals,
     setRecommendationDrinks,
   } = useContext(context);
+  const [clickShare, setClickShare] = useState(false);
 
   useEffect(() => {
     const requestRecipe = async (params) => {
@@ -57,9 +58,8 @@ function RecipeDetails() {
   };
 
   const handleShareButton = () => {
-    copy(location.pathname);
-    console.log('copiou');
-    return <h1>Link copied!</h1>;
+    copy(`http://localhost:3000/${location.pathname}`);
+    setClickShare(true);
   };
 
   return (
@@ -141,6 +141,9 @@ function RecipeDetails() {
                   alt="Icone de compartilhamento"
                 />
               </button>
+              {
+                clickShare && <h2>Link copied!</h2>
+              }
               <button
                 data-testid="favorite-btn"
               >
