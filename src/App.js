@@ -9,13 +9,22 @@ import MealsProvider from './provider/MealsProvider';
 import DrinksProvider from './provider/DrinksProvider';
 import Meals from './pages/Meals';
 import RecipeDetails from './components/RecipeDetails';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
     <main>
       <Switch>
-        <Route path="/drinks/:id/in-progress" component={ Drinks } />
-        <Route path="/meals/:id/in-progress" component={ Meals } />
+        <Route
+          path="/drinks/:id/in-progress"
+          render={ (props) => (
+            <DrinksProvider><RecipeInProgress { ...props } /></DrinksProvider>) }
+        />
+        <Route
+          path="/meals/:id/in-progress"
+          render={ (props) => (
+            <MealsProvider><RecipeInProgress { ...props } /></MealsProvider>) }
+        />
         <Route
           exact
           path="/meals/:id"
