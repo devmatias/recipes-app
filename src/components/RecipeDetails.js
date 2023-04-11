@@ -2,7 +2,8 @@ import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 import { fetchData } from '../services/FetchFunctions';
 import { pathContextFinder } from '../utils/pathFinder';
-import { DETAILS_DRINKS, DETAILS_MEALS, MEALS_NAME_URL, DRINKS_NAME_URL } from '../utils/constants';
+import { DETAILS_DRINKS, DETAILS_MEALS,
+  MEALS_NAME_URL, DRINKS_NAME_URL } from '../utils/constants';
 import '../styles/RecipeDetails.css';
 
 function RecipeDetails() {
