@@ -5,6 +5,7 @@ import { pathContextFinder } from '../utils/pathFinder';
 import { DETAILS_DRINKS, DETAILS_MEALS,
   MEALS_NAME_URL, DRINKS_NAME_URL } from '../utils/constants';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import '../styles/RecipeDetails.css';
 
 const copy = require('clipboard-copy');
@@ -58,7 +59,7 @@ function RecipeDetails() {
   };
 
   const handleShareButton = () => {
-    copy(`http://localhost:3000/${location.pathname}`);
+    copy(`http://localhost:3000${location.pathname}`);
     setClickShare(true);
   };
 
@@ -125,31 +126,40 @@ function RecipeDetails() {
                   />
                 )
               }
-              <button
-                className="startRecipe"
-                data-testid="start-recipe-btn"
-                onClick={ () => handleStartButton() }
-              >
-                Start Recipe
-              </button>
-              <button
-                onClick={ () => handleShareButton() }
-                data-testid="share-btn"
-              >
-                <img
-                  src={ shareIcon }
-                  alt="Icone de compartilhamento"
-                />
-              </button>
-              {
-                clickShare && <h2>Link copied!</h2>
-              }
-              <button
-                data-testid="favorite-btn"
-              >
-                Favorites
-              </button>
+              <section>
+                <button
+                  className="startRecipe"
+                  data-testid="start-recipe-btn"
+                  onClick={ () => handleStartButton() }
+                >
+                  Start Recipe
+                </button>
+              </section>
+              <section>
+                <button
+                  onClick={ () => handleShareButton() }
+                  data-testid="share-btn"
+                >
+                  <img
+                    src={ shareIcon }
+                    alt="Icone de compartilhamento"
+                  />
+                </button>
+                {
+                  clickShare && <h2>Link copied!</h2>
+                }
+              </section>
+              <section>
+                <button
+                  data-testid="favorite-btn"
 
+                >
+                  <img
+                    src={ whiteHeartIcon }
+                    alt="Imagem de coracao"
+                  />
+                </button>
+              </section>
             </div>
           );
         })}
