@@ -48,9 +48,9 @@ function RecipeDetails() {
     recommendationRecipes();
   }, [id, location, setDataRecipe, setRecommendationDrinks, setRecommendationMeals]);
 
-  const handleStartButton = (idPath) => {
+  const handleStartButton = () => {
     console.log('clicou');
-    history.push(`${location.pathname}/${idPath}/in-progress`);
+    history.push(`${location.pathname}/in-progress`);
   };
 
   return (
@@ -119,7 +119,7 @@ function RecipeDetails() {
               <button
                 className="startRecipe"
                 data-testid="start-recipe-btn"
-                onClick={ () => handleStartButton(id) }
+                onClick={ () => handleStartButton() }
               >
                 Start Recipe
               </button>
