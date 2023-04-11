@@ -33,9 +33,7 @@ function RecipeDetails() {
       }
     };
     requestRecipe(id);
-  }, [id, location, setDataRecipe, setRecommendationDrinks, setRecommendationMeals]);
 
-  useEffect(() => {
     const recommendationRecipes = async () => {
       if (location.pathname.includes('/drinks')) {
         const recommendationData = await fetchData(MEALS_NAME_URL);
@@ -49,7 +47,7 @@ function RecipeDetails() {
       }
     };
     recommendationRecipes();
-  }, [location, setRecommendationDrinks, setRecommendationMeals]);
+  }, [id, location, setDataRecipe, setRecommendationDrinks, setRecommendationMeals]);
 
   return (
     <>
