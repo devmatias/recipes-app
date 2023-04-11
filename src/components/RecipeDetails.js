@@ -1,23 +1,27 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 import { fetchData } from '../services/FetchFunctions';
 import { pathContextFinder } from '../utils/pathFinder';
-import { DETAILS_DRINKS, DETAILS_MEALS } from '../utils/constants';
+import { DETAILS_DRINKS, DETAILS_MEALS,
+  MEALS_NAME_URL, DRINKS_NAME_URL } from '../utils/constants';
+import '../styles/RecipeDetails.css';
 
 function RecipeDetails() {
   const location = useLocation();
+  const history = useHistory();
   const { id } = useParams();
   const context = pathContextFinder(location);
   const {
     setDataRecipe,
     dataRecipe,
+    setRecommendationMeals,
+    setRecommendationDrinks,
   } = useContext(context);
 
   useEffect(() => {
     const requestRecipe = async (params) => {
       if (location.pathname.includes('/meals')) {
         const detailsData = await fetchData(DETAILS_MEALS, params);
-        console.log(detailsData);
         setDataRecipe(detailsData.meals);
         return detailsData;
       }
@@ -28,7 +32,26 @@ function RecipeDetails() {
       }
     };
     requestRecipe(id);
-  }, [id, location, setDataRecipe]);
+
+    const recommendationRecipes = async () => {
+      if (location.pathname.includes('/drinks')) {
+        const recommendationData = await fetchData(MEALS_NAME_URL);
+        setRecommendationMeals(recommendationData);
+        console.log(recommendationData);
+      }
+      if (location.pathname.includes('/meals')) {
+        const recommendationData = await fetchData(DRINKS_NAME_URL);
+        setRecommendationDrinks(recommendationData);
+        console.log(recommendationData);
+      }
+    };
+    recommendationRecipes();
+  }, [id, location, setDataRecipe, setRecommendationDrinks, setRecommendationMeals]);
+
+  const handleStartButton = () => {
+    console.log('clicou');
+    history.push(`${location.pathname}/in-progress`);
+  };
 
   return (
     <>
@@ -49,7 +72,6 @@ function RecipeDetails() {
             .filter((element) => element[0]
               .includes('strMeasure') && element[1] !== ' ' && element[1]);
 
-          console.log(ingredients);
           return (
             <div key={ index }>
               <img
@@ -81,106 +103,6 @@ function RecipeDetails() {
                     </li>
                   ))
                 }
-                {/* <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient2}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient3}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient4}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient5}
-
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient6}
-
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient7}
-
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient8}
-
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient9}
-
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient10}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient11}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient12}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient13}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient14}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient15}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient16}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient17}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient18}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient19}
-                </li>
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {strIngredient20}
-                </li> */}
               </ul>
               <p data-testid="instructions">{strInstructions}</p>
               {
@@ -194,6 +116,14 @@ function RecipeDetails() {
                   />
                 )
               }
+              <button
+                className="startRecipe"
+                data-testid="start-recipe-btn"
+                onClick={ () => handleStartButton() }
+              >
+                Start Recipe
+              </button>
+
             </div>
           );
         })}

@@ -13,6 +13,7 @@ function DrinksProvider({ children }) {
   const [dataRecipe, setDataRecipe] = useState([]);
   const [idRecipe, setIdRecipe] = useState('');
   const [categories, setCategories] = useState([]);
+  const [recommendationMeals, setRecommendationMeals] = useState([]);
 
   useEffect(() => {
     const recipesData = fetchData(DRINKS_NAME_URL)
@@ -45,6 +46,8 @@ function DrinksProvider({ children }) {
     idRecipe,
     setIdRecipe,
     allRecipes,
+    recommendationMeals,
+    setRecommendationMeals,
   }), [
     setRadio,
     setSearchValue,
@@ -59,6 +62,8 @@ function DrinksProvider({ children }) {
     idRecipe,
     setIdRecipe,
     allRecipes,
+    recommendationMeals,
+    setRecommendationMeals,
   ]);
 
   return (
