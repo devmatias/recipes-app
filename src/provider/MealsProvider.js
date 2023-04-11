@@ -17,11 +17,14 @@ function MealsProvider({ children }) {
   useEffect(() => {
     const recipesData = fetchData(MEALS_NAME_URL)
       .then((dataRecipes) => {
+        console.log(dataRecipes);
         setAllRecipes(dataRecipes.meals);
         setRecipes(dataRecipes.meals);
       });
     const categoriesData = fetchData(MEALS_CATEGORY)
       .then((catData) => {
+        console.log(catData);
+
         setCategories(catData.meals);
       });
     Promise.all([recipesData, categoriesData])
