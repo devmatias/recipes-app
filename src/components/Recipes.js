@@ -12,7 +12,6 @@ function Recipes() {
   const history = useHistory();
   const [filter, setFilter] = useState([]);
   const context = pathContextFinder(location);
-  console.log(location);
   const {
     recipes,
     setRecipes,
@@ -39,6 +38,7 @@ function Recipes() {
       const dataQuery = await fetchData(pathURLCategoryFinder(location), value);
       const recipePath = dataQuery.meals || dataQuery.drinks;
       setRecipes(recipePath);
+      console.log(recipePath);
       setFilter([value]);
     }
   };

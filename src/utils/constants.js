@@ -16,3 +16,9 @@ export const DRINKS_CATEGORY = 'https://www.thecocktaildb.com/api/json/v1/1/list
 
 export const NUMBER_12 = 12;
 export const NUMBER_5 = 5;
+
+// Constantes para testes
+
+export const DATATEST_BEEF = 'Beef-category-filter';
+export const DATATEST_0_CARDIMG = '0-card-img';
+export const BEEF_MUSTARD = 'Beef and Mustard Pie';
