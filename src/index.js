@@ -4,16 +4,16 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import AppProvider from './provider/AppProvider';
+import AllProviders from './AllProviders';
 
 ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
-    <AppProvider>
+    <AllProviders>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </AppProvider>,
+    </AllProviders>,
 
   );
 
