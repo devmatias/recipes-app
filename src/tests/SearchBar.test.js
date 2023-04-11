@@ -1,19 +1,20 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
-import SearchBar from '../components/SearchBar';
+
 // import renderWithRouter from '../renderWithRouter';
 import { renderWithRouter } from './renderWith';
 import AllProviders from '../AllProviders';
 import App from '../App';
 
 describe('Testando o componente <Header/>', () => {
-  it('Teste para ver se os elementos estão na página', () => {
+  const initialEntries = ['/meals'];
+  it('Teste para ver se os elementos estão na página', async () => {
     renderWithRouter(
       <AllProviders>
         <App />
       </AllProviders>,
-      ['/meals'],
+      { initialEntries },
     );
 
     const ingredientRadio = screen.getByTestId('ingredient-search-radio');
@@ -31,7 +32,7 @@ describe('Testando o componente <Header/>', () => {
       <AllProviders>
         <App />
       </AllProviders>,
-      ['/meals'],
+      { initialEntries },
     );
 
     const ingredientRadio = screen.getByTestId('ingredient-search-radio');
