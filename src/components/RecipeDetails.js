@@ -62,9 +62,6 @@ function RecipeDetails() {
     setClickShare(true);
   };
 
-  const toggleClick = () => (favoriteClick
-    ? setFavoriteClick(false) : setFavoriteClick(true));
-
   const handleClick = () => {
     const { idDrink, idMeal,
       strMeal, strDrink,
@@ -85,15 +82,32 @@ function RecipeDetails() {
       name: strRecipe,
       image: strThumb,
     };
-
     const saveStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    if (!favoriteClick) {
+      setFavoriteClick(true);
 
-    localStorage.setItem(
-      'favoriteRecipes',
-      JSON.stringify([...saveStorage, settingFavorites]),
-    );
-    toggleClick();
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify([...saveStorage, settingFavorites]),
+      );
+    } else {
+      setFavoriteClick(false);
+      const removeFavorite = saveStorage
+        .filter((item) => (item.id !== settingFavorites.id));
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(removeFavorite),
+      );
+    }
   };
+
+  useEffect(() => {
+    const favoriteRecipeSaved = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const isRecipeFavorite = favoriteRecipeSaved.some((item) => (
+      item.id === id
+    ));
+    setFavoriteClick(isRecipeFavorite);
+  }, [id]);
 
   return (
     <>
@@ -185,10 +199,11 @@ function RecipeDetails() {
                 {
                   favoriteClick ? (
                     <button
-                      data-testid="favorite-btn"
+                      // data-testid="favorite-btn"
                       onClick={ () => handleClick() }
                     >
                       <img
+                        data-testid="favorite-btn"
                         src={ blackHeartIcon }
                         alt="Imagem de coracao"
                       />
@@ -196,10 +211,10 @@ function RecipeDetails() {
 
                   ) : (
                     <button
-                      data-testid="favorite-btn"
                       onClick={ () => handleClick() }
                     >
                       <img
+                        data-testid="favorite-btn"
                         src={ whiteHeartIcon }
                         alt="Imagem de coracao"
                       />
