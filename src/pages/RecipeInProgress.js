@@ -4,6 +4,7 @@ import { pathContextFinder, pathURLRecipeFinder } from '../utils/pathFinder';
 import { fetchData } from '../services/FetchFunctions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import '../styles/RecipeInProgress.css';
 
 const copy = require('clipboard-copy');
 
@@ -19,6 +20,7 @@ function RecipeInProgress() {
     setIsLoading,
   } = useContext(context);
   const [clickShare, setClickShare] = useState(false);
+  const [itemsChecked, setItemsChecked] = useState({});
 
   useEffect(() => {
     setIsLoading(true);
@@ -70,6 +72,15 @@ function RecipeInProgress() {
     return <div>Carregando dados...</div>;
   }
   console.log(clickShare);
+
+  const handleCheckboxClick = ({ target }) => {
+    const { name, checked } = target;
+    setItemsChecked({
+      ...itemsChecked,
+      [name]: checked,
+    });
+  };
+
   return (
     <div>
       Recipe In Progress
@@ -83,7 +94,16 @@ function RecipeInProgress() {
         const strRecipe = strMeal || strDrink;
         const strThumb = strMealThumb || strDrinkThumb;
         const strDescription = strAlcoholic || strCategory;
+        const ingredients = Object.entries(recipe)
+          .filter((element) => element[0]
+            .includes('strIngredient') && element[1] !== ' ' && element[1]);
 
+        const measures = Object.entries(recipe)
+          .filter((element) => element[0]
+            .includes('strMeasure') && element[1] !== ' ' && element[1]);
+        const ingredientsAndMeasures = ingredients
+          .map((ingred, indexIngred) => [...ingred, ...measures[indexIngred]]);
+        console.log(ingredientsAndMeasures);
         return (
           <div key={ index }>
             <h3
@@ -101,6 +121,34 @@ function RecipeInProgress() {
             >
               {strDescription}
             </p>
+            <ul>
+              {
+                ingredientsAndMeasures.map((ingredient, indexIngredient) => (
+                  <li
+                    key={ indexIngredient }
+                    data-testid={ `${indexIngredient}-ingredient-name-and-measure` }
+                  >
+                    <label
+                      className={
+                        itemsChecked[`${indexIngredient}-ingredient`] && 'sublinhado'
+                      }
+                      data-testid={ `${indexIngredient}-ingredient-step` }
+                      htmlFor={ `${indexIngredient}-checkbox` }
+                    >
+                      {`${ingredient[1]} - ${ingredient[3]}`}
+                      <input
+                        type="checkbox"
+                        name={ `${indexIngredient}-ingredient` }
+                        id={ `${indexIngredient}-checkbox` }
+                        onClick={ handleCheckboxClick }
+                        checked={ itemsChecked[`${indexIngredient}-ingredient`] }
+                      />
+                    </label>
+                  </li>
+
+                ))
+              }
+            </ul>
             <p data-testid="instructions">{strInstructions}</p>
             <button
               data-testid="finish-recipe-btn"
