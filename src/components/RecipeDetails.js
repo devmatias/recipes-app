@@ -185,25 +185,31 @@ function RecipeDetails() {
                 }
               </section>
               <section>
-                <button
-                  data-testid="favorite-btn"
-                  onClick={ () => handleClick() }
-                  // src={ blackHeartIcon }
-                >
-                  {
-                    favoriteClick ? (
+                {
+                  favoriteClick ? (
+                    <button
+                      data-testid="favorite-btn"
+                      onClick={ () => handleClick() }
+                    >
                       <img
                         src={ blackHeartIcon }
                         alt="Imagem de coracao"
                       />
-                    ) : (
+                    </button>
+
+                  ) : (
+                    <button
+                      data-testid="favorite-btn"
+                      onClick={ () => handleClick() }
+                    >
                       <img
                         src={ whiteHeartIcon }
                         alt="Imagem de coracao"
                       />
-                    )
-                  }
-                </button>
+                    </button>
+
+                  )
+                }
               </section>
               <div>Oi</div>
             </div>
