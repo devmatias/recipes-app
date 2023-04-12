@@ -6,6 +6,7 @@ import { DETAILS_DRINKS, DETAILS_MEALS,
   MEALS_NAME_URL, DRINKS_NAME_URL } from '../utils/constants';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/RecipeDetails.css';
 
 const copy = require('clipboard-copy');
@@ -22,6 +23,7 @@ function RecipeDetails() {
     setRecommendationDrinks,
   } = useContext(context);
   const [clickShare, setClickShare] = useState(false);
+  const [favoriteClick, setFavoriteClick] = useState(false);
 
   useEffect(() => {
     const requestRecipe = async (params) => {
@@ -52,7 +54,6 @@ function RecipeDetails() {
   }, [id, location, setDataRecipe, setRecommendationDrinks, setRecommendationMeals]);
 
   const handleStartButton = () => {
-    console.log('clicou');
     history.push(`${location.pathname}/in-progress`);
   };
 
@@ -61,13 +62,15 @@ function RecipeDetails() {
     setClickShare(true);
   };
 
+  const toggleClick = () => (favoriteClick
+    ? setFavoriteClick(false) : setFavoriteClick(true));
+
   const handleClick = () => {
     const { idDrink, idMeal,
       strMeal, strDrink,
       strDrinkThumb, strMealThumb,
       strCategory, strAlcoholic, strArea,
     } = dataRecipe[0];
-    console.log(dataRecipe);
     const idRecipe = idMeal || idDrink;
     const typeRecipe = idDrink ? 'drink' : 'meal';
     const strRecipe = strMeal || strDrink;
@@ -89,6 +92,10 @@ function RecipeDetails() {
       'favoriteRecipes',
       JSON.stringify([...saveStorage, settingFavorites]),
     );
+    // saveStorage.filter((id) => {
+
+    // })
+    toggleClick();
   };
 
   return (
@@ -181,11 +188,21 @@ function RecipeDetails() {
                 <button
                   data-testid="favorite-btn"
                   onClick={ () => handleClick() }
+                  // src={ blackHeartIcon }
                 >
-                  <img
-                    src={ whiteHeartIcon }
-                    alt="Imagem de coracao"
-                  />
+                  {
+                    favoriteClick ? (
+                      <img
+                        src={ blackHeartIcon }
+                        alt="Imagem de coracao"
+                      />
+                    ) : (
+                      <img
+                        src={ whiteHeartIcon }
+                        alt="Imagem de coracao"
+                      />
+                    )
+                  }
                 </button>
               </section>
               <div>Oi</div>
