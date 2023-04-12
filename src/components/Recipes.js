@@ -82,7 +82,6 @@ function Recipes() {
           const strRecipe = strMeal || strDrink;
           const strThumb = strMealThumb || strDrinkThumb;
           const id = idMeal || idDrink;
-          console.log(id);
           return index < NUMBER_12
            && (
              <div

@@ -42,12 +42,10 @@ function RecipeDetails() {
       if (location.pathname.includes('/drinks')) {
         const recommendationData = await fetchData(MEALS_NAME_URL);
         setRecommendationMeals(recommendationData);
-        console.log(recommendationData);
       }
       if (location.pathname.includes('/meals')) {
         const recommendationData = await fetchData(DRINKS_NAME_URL);
         setRecommendationDrinks(recommendationData);
-        console.log(recommendationData);
       }
     };
     recommendationRecipes();
@@ -61,6 +59,36 @@ function RecipeDetails() {
   const handleShareButton = () => {
     copy(`http://localhost:3000${location.pathname}`);
     setClickShare(true);
+  };
+
+  const handleClick = () => {
+    const { idDrink, idMeal,
+      strMeal, strDrink,
+      strDrinkThumb, strMealThumb,
+      strCategory, strAlcoholic, strArea,
+    } = dataRecipe[0];
+    console.log(dataRecipe);
+    const idRecipe = idMeal || idDrink;
+    const typeRecipe = idDrink ? 'drink' : 'meal';
+    const strRecipe = strMeal || strDrink;
+    const strThumb = strMealThumb || strDrinkThumb;
+
+    const settingFavorites = {
+      id: idRecipe,
+      type: typeRecipe,
+      nationality: strArea || '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic || '',
+      name: strRecipe,
+      image: strThumb,
+    };
+
+    const saveStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
+    localStorage.setItem(
+      'favoriteRecipes',
+      JSON.stringify([...saveStorage, settingFavorites]),
+    );
   };
 
   return (
@@ -152,7 +180,7 @@ function RecipeDetails() {
               <section>
                 <button
                   data-testid="favorite-btn"
-
+                  onClick={ () => handleClick() }
                 >
                   <img
                     src={ whiteHeartIcon }
@@ -160,6 +188,7 @@ function RecipeDetails() {
                   />
                 </button>
               </section>
+              <div>Oi</div>
             </div>
           );
         })}
