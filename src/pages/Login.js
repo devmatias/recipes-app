@@ -34,9 +34,7 @@ function Login() {
     localStorage.setItem('user', JSON.stringify(settingEmail));
     history.push('/meals');
   };
-  const onchangeeu = ({ value }) => {
-    console.log(value);
-  };
+
   return (
     <section>
       <form>
@@ -65,10 +63,6 @@ function Login() {
           >
             Enter
           </button>
-          <input
-            type="checkbox"
-            onChange={ onchangeeu }
-          />
         </section>
 
       </form>
