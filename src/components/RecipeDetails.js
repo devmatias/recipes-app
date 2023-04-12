@@ -92,9 +92,6 @@ function RecipeDetails() {
       'favoriteRecipes',
       JSON.stringify([...saveStorage, settingFavorites]),
     );
-    // saveStorage.filter((id) => {
-
-    // })
     toggleClick();
   };
 
