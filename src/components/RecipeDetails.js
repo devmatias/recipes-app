@@ -6,6 +6,7 @@ import { DETAILS_DRINKS, DETAILS_MEALS,
   MEALS_NAME_URL, DRINKS_NAME_URL } from '../utils/constants';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/RecipeDetails.css';
 
 const copy = require('clipboard-copy');
@@ -22,6 +23,7 @@ function RecipeDetails() {
     setRecommendationDrinks,
   } = useContext(context);
   const [clickShare, setClickShare] = useState(false);
+  const [favoriteClick, setFavoriteClick] = useState(false);
 
   useEffect(() => {
     const requestRecipe = async (params) => {
@@ -42,12 +44,10 @@ function RecipeDetails() {
       if (location.pathname.includes('/drinks')) {
         const recommendationData = await fetchData(MEALS_NAME_URL);
         setRecommendationMeals(recommendationData);
-        console.log(recommendationData);
       }
       if (location.pathname.includes('/meals')) {
         const recommendationData = await fetchData(DRINKS_NAME_URL);
         setRecommendationDrinks(recommendationData);
-        console.log(recommendationData);
       }
     };
     recommendationRecipes();
@@ -60,6 +60,39 @@ function RecipeDetails() {
   const handleShareButton = () => {
     copy(`http://localhost:3000${location.pathname}`);
     setClickShare(true);
+  };
+
+  const toggleClick = () => (favoriteClick
+    ? setFavoriteClick(false) : setFavoriteClick(true));
+
+  const handleClick = () => {
+    const { idDrink, idMeal,
+      strMeal, strDrink,
+      strDrinkThumb, strMealThumb,
+      strCategory, strAlcoholic, strArea,
+    } = dataRecipe[0];
+    const idRecipe = idMeal || idDrink;
+    const typeRecipe = idDrink ? 'drink' : 'meal';
+    const strRecipe = strMeal || strDrink;
+    const strThumb = strMealThumb || strDrinkThumb;
+
+    const settingFavorites = {
+      id: idRecipe,
+      type: typeRecipe,
+      nationality: strArea || '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic || '',
+      name: strRecipe,
+      image: strThumb,
+    };
+
+    const saveStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
+    localStorage.setItem(
+      'favoriteRecipes',
+      JSON.stringify([...saveStorage, settingFavorites]),
+    );
+    toggleClick();
   };
 
   return (
@@ -149,16 +182,33 @@ function RecipeDetails() {
                 }
               </section>
               <section>
-                <button
-                  data-testid="favorite-btn"
+                {
+                  favoriteClick ? (
+                    <button
+                      data-testid="favorite-btn"
+                      onClick={ () => handleClick() }
+                    >
+                      <img
+                        src={ blackHeartIcon }
+                        alt="Imagem de coracao"
+                      />
+                    </button>
 
-                >
-                  <img
-                    src={ whiteHeartIcon }
-                    alt="Imagem de coracao"
-                  />
-                </button>
+                  ) : (
+                    <button
+                      data-testid="favorite-btn"
+                      onClick={ () => handleClick() }
+                    >
+                      <img
+                        src={ whiteHeartIcon }
+                        alt="Imagem de coracao"
+                      />
+                    </button>
+
+                  )
+                }
               </section>
+              <div>Oi</div>
             </div>
           );
         })}
