@@ -54,7 +54,6 @@ function RecipeDetails() {
   }, [id, location, setDataRecipe, setRecommendationDrinks, setRecommendationMeals]);
 
   const handleStartButton = () => {
-    console.log('clicou');
     history.push(`${location.pathname}/in-progress`);
   };
 
