@@ -43,6 +43,7 @@ function SearchBar() {
       return;
     }
     await requestData();
+    console.log('test');
   };
 
   return (
