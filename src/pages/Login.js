@@ -37,7 +37,7 @@ function Login() {
   };
 
   return (
-    <section className="main-container">
+    <section className="main-login-container">
       <form className="login-card">
         <h1>Login</h1>
         <section className="section-text-inputs">
