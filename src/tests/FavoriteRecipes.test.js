@@ -21,7 +21,6 @@ describe('Testes da Página FavoriteRecipes', () => {
 
     const favoriteRecipesCards = screen.getAllByTestId(/-recipe-card/i);
     expect(favoriteRecipesCards).toHaveLength(2);
-
   });
   test('Testa se os botões filtram correntamente', () => {
     renderWithRouter(<App />, { initialEntries });
@@ -38,9 +37,8 @@ describe('Testes da Página FavoriteRecipes', () => {
     userEvent.click(filterMealsBtn);
     expect(screen.getAllByTestId(/-recipe-card/i)).toHaveLength(1);
     expect(screen.getByTestId(img0)).toBeVisible();
- 
   });
- 
+
   test('Testa a rota de detalhes', () => {
     const { history } = renderWithRouter(<App />, { initialEntries });
 
