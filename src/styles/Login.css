@@ -39,22 +39,32 @@ h1 {
 }
 
 .login-card {
-  width: 60%;
+  width: 80%;
 
 }
 
-.submit-btn {
+.submit-btn :disabled {
   align-items: center;
+  background-color: #0f4d5cb1;
+  border-radius: 6px;
   display: flex;
   justify-content: center;
   padding: 4px;
+}
 
-
+.enterButton :enabled {
+  align-items: center;
+  background-color: #0f4c5c;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  padding: 4px;
 }
 
 .input-login {
   background-color: #ed955fd9;
   border-color: #e36314d9;
   border-radius: 6px;
+  color: white;
   margin: 4px;
 }

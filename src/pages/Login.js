@@ -63,7 +63,7 @@ function Login() {
             data-testid="login-submit-btn"
             disabled={ enableButton() }
             onClick={ HandleClick }
-            className="submit-btn"
+            className="enterButton"
           >
             Enter
           </button>
