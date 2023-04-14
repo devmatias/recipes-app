@@ -43,6 +43,11 @@ h1 {
 
 }
 
+.submit-btn {
+  display: flex;
+  justify-content: center;
+}
+
 .submit-btn :disabled {
   align-items: center;
   background-color: #0f4d5cb1;
