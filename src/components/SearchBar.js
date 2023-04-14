@@ -47,9 +47,10 @@ function SearchBar() {
   };
 
   return (
-    <form>
+
+    <form className="searchBar-form-container">
       <header>
-        <div>
+        <div className="radio-input-container">
           <label htmlFor="ingredient">
             <input
               type="radio"
@@ -81,6 +82,7 @@ function SearchBar() {
             First Letter
           </label>
         </div>
+
         <button
           type="button"
           data-testid="exec-search-btn"
@@ -90,6 +92,7 @@ function SearchBar() {
         </button>
       </header>
     </form>
+
   );
 }
 export default SearchBar;

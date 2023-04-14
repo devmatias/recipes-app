@@ -128,28 +128,32 @@ function RecipeDetails() {
             .filter((element) => element[0]
               .includes('strMeasure') && element[1] !== ' ' && element[1]);
 
+          const ingredientsAndMeasures = ingredients
+            .map((ingred, indexIngred) => [...ingred, ...measures[indexIngred]]);
+
           return (
             <div key={ index }>
               <img
                 data-testid="recipe-photo"
                 src={ strThumb }
                 alt={ strRecipe }
+                width="200px"
               />
               <h1 data-testid="recipe-title">{strRecipe}</h1>
               <h2 data-testid="recipe-category">{strDescription}</h2>
               <ul>
                 {
-                  ingredients.map((ingredient, indexIngredient) => (
+                  ingredientsAndMeasures.map((ingredient, indexIngredient) => (
                     <li
                       key={ indexIngredient }
                       data-testid={ `${indexIngredient}-ingredient-name-and-measure` }
                     >
-                      {ingredient[1]}
+                      {`${ingredient[1]} - ${ingredient[3]}`}
                     </li>
 
                   ))
                 }
-                {
+                {/* {
                   measures.map((measure, indexMeasure) => (
                     <li
                       key={ indexMeasure }
@@ -158,7 +162,7 @@ function RecipeDetails() {
                       {measure[1]}
                     </li>
                   ))
-                }
+                } */}
               </ul>
               <p data-testid="instructions">{strInstructions}</p>
               {

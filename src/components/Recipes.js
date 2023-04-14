@@ -6,6 +6,7 @@ import {
   pathURLCategoryFinder,
 } from '../utils/pathFinder';
 import { fetchData } from '../services/FetchFunctions';
+import '../styles/Recipes.css';
 
 function Recipes() {
   const location = useLocation();
@@ -49,18 +50,20 @@ function Recipes() {
   };
 
   return (
-    <div>
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ removeFilters }
-      >
-        All
-      </button>
-      {
-        !isLoading && categories.map(({ strCategory }, index) => {
-          const dataTestIdFilters = `${strCategory}-category-filter`;
-          return index < NUMBER_5
+    <div className="recipes-main-container">
+      <div className="filter-btn-container">
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ removeFilters }
+
+        >
+          All
+        </button>
+        {
+          !isLoading && categories.map(({ strCategory }, index) => {
+            const dataTestIdFilters = `${strCategory}-category-filter`;
+            return index < NUMBER_5
           && (
             <button
               key={ index }
@@ -68,13 +71,15 @@ function Recipes() {
               data-testid={ dataTestIdFilters }
               onClick={ findByCategory }
               value={ strCategory }
+              className="filter-btn"
             >
               {strCategory}
 
             </button>
           );
-        })
-      }
+          })
+        }
+      </div>
       {
         !isLoading && recipes.map((recipe, index) => {
           const { strMeal, strDrink, strDrinkThumb,
@@ -87,6 +92,7 @@ function Recipes() {
              <div
                key={ index }
                data-testid={ `${index}-recipe-card` }
+               className="recipe-card"
              >
                <p
                  data-testid={ `${index}-card-name` }
