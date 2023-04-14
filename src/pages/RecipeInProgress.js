@@ -32,7 +32,6 @@ function RecipeInProgress() {
       });
   }, [id, url, setIsLoading, setDataRecipe]);
 
-  console.log(dataRecipe);
   const handleShareButton = () => {
     copy(`http://localhost:3000${location.pathname}`);
     setClickShare(true);
@@ -71,7 +70,6 @@ function RecipeInProgress() {
   if (isLoading) {
     return <div>Carregando dados...</div>;
   }
-  console.log(clickShare);
 
   const handleCheckboxClick = ({ target }) => {
     const { name, checked } = target;
@@ -115,6 +113,7 @@ function RecipeInProgress() {
               data-testid="recipe-photo"
               src={ strThumb }
               alt={ strRecipe }
+              width="200px"
             />
             <p
               data-testid="recipe-category"
