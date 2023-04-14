@@ -134,7 +134,6 @@ function RecipeInProgress() {
                       data-testid={ `${indexIngredient}-ingredient-step` }
                       htmlFor={ `${indexIngredient}-checkbox` }
                     >
-                      {`${ingredient[1]} - ${ingredient[3]}`}
                       <input
                         type="checkbox"
                         name={ `${indexIngredient}-ingredient` }
@@ -142,6 +141,7 @@ function RecipeInProgress() {
                         onClick={ handleCheckboxClick }
                         checked={ itemsChecked[`${indexIngredient}-ingredient`] }
                       />
+                      {`${ingredient[1]} - ${ingredient[3]}`}
                     </label>
                   </li>
 
