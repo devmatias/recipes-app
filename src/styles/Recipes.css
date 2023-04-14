@@ -1,18 +1,20 @@
-.recipes-main-container{
-  min-height: 100vh;
-  text-align: center;
+.recipes-main-container {
+  align-items: center;
+  background-color: #9a031e;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  background-color: rgb(255, 0, 106);
+  min-height: 100vh;
+  text-align: center;
 }
 
-.filter-btn-container{
-  margin: 4px;
+.filter-btn-container {
   flex-direction: row;
+  margin: 4px;
 }
-.recipe-card{
-  background-color: black;
+
+.recipe-card {
+  background-color: #e36314a0;
+  border-radius: 6px;
   padding: 10px;
 }
