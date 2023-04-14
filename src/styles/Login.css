@@ -1,47 +1,60 @@
-*{
-  padding: 0;
+* {
   margin: 0;
- 
+  padding: 0;
+
 }
 
-h1{
+h1 {
+  align-items: center;
+  color: #e36414;
+  display: flex;
+  justify-content: center;
   padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-shadow: 1px 1px  #0f4c5c;
+  width: 70%;
 }
-.section-text-inputs{
-  background-color: blue;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
+
+.section-text-inputs {
   align-items: center;
-  justify-content: center;
+  background-color: #9a031f97;
   border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
 
 }
-.main-login-container{
+
+.main-login-container {
+  align-items: center;
+  background-image: url('./backgrounds/wallpaper2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
   min-height: 100vh;
-  display: flex;
+
+  /* opacity: 0.9; */
+
+}
+
+.login-card {
+  width: 60%;
+
+}
+
+.submit-btn {
   align-items: center;
+  display: flex;
   justify-content: center;
-  background-color: rgb(255, 0, 106);
- 
-}
-
-.login-card{
-  width: 60%
-
-}
-.submit-btn{
   padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
 
 }
 
-.input-login{
+.input-login {
+  background-color: #9a031e;
+  border-color: #9a031f97;
   margin: 4px;
 }
+
