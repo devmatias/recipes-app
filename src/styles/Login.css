@@ -10,18 +10,18 @@ h1 {
   display: flex;
   justify-content: center;
   padding: 4px;
-  text-shadow: 1px 1px  #0f4c5c;
-  width: 70%;
+  text-shadow: 1px 2px  #0f4c5c;
+  width: 100%;
 }
 
 .section-text-inputs {
   align-items: center;
-  background-color: #9a031f97;
+  background-color: #e36314a0;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 80%;
+  width: 100%;
 
 }
 
@@ -53,8 +53,9 @@ h1 {
 }
 
 .input-login {
-  background-color: #9a031e;
-  border-color: #9a031f97;
+  background-color: #ed955fd9;
+  border-color: #e36314d9;
+  border-radius: 6px;
   margin: 4px;
 }
 
