@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { AppContext } from '../context/Context';
-import '../styles/Login.css';
+import { Form, Main } from '../styles/styledLogin';
+// import '../styles/Login.css';
 
 function Login() {
   const {
@@ -28,7 +29,7 @@ function Login() {
   };
   const history = useHistory();
 
-  const HandleClick = () => {
+  const handleClick = () => {
     const settingEmail = {
       email,
     };
@@ -37,42 +38,36 @@ function Login() {
   };
 
   return (
-    <section className="main-login-container">
-      <form className="login-card">
-        <h1>Login</h1>
+    <Main>
+      <Form>
+        <h1>Sign in</h1>
         <section className="section-text-inputs">
           <input
             placeholder="Email"
             type="email"
             data-testid="email-input"
             onChange={ (e) => setEmail(e.target.value) }
-            className="input-login"
           />
           <input
             placeholder="Password"
             type="password"
             data-testid="password-input"
             onChange={ (e) => setPassword(e.target.value) }
-            className="input-login"
-
           />
-        </section>
-        <section className="submit-btn">
           <button
             type="button"
             data-testid="login-submit-btn"
             disabled={ enableButton() }
-            onClick={ HandleClick }
-            className="enterButton"
+            onClick={ handleClick }
           >
             Enter
           </button>
         </section>
-
-      </form>
-    </section>
+      </Form>
+    </Main>
   );
 }
+
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,

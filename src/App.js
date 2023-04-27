@@ -13,47 +13,45 @@ import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
-    <main>
-      <Switch>
-        <Route
-          path="/drinks/:id/in-progress"
-          render={ (props) => (
-            <DrinksProvider><RecipeInProgress { ...props } /></DrinksProvider>) }
-        />
-        <Route
-          path="/meals/:id/in-progress"
-          render={ (props) => (
-            <MealsProvider><RecipeInProgress { ...props } /></MealsProvider>) }
-        />
-        <Route
-          exact
-          path="/meals/:id"
-          render={ (props) => (
-            <MealsProvider><RecipeDetails { ...props } /></MealsProvider>) }
-        />
-        <Route
-          exact
-          path="/drinks/:id"
-          render={ (props) => (
-            <DrinksProvider><RecipeDetails { ...props } /></DrinksProvider>) }
-        />
-        <Route path="/favorite-recipes" component={ FavoriteRecipes } />
-        <Route path="/done-recipes" component={ DoneRecipes } />
-        <Route path="/profile" component={ Profile } />
-        <Route
-          exact
-          path="/drinks"
-          render={ () => (<DrinksProvider><Drinks /></DrinksProvider>) }
-        />
-        <Route
-          exact
-          path="/meals"
-          render={ (props) => (
-            <MealsProvider><Meals { ...props } /></MealsProvider>) }
-        />
-        <Route exact path="/" component={ Login } />
-      </Switch>
-    </main>
+    <Switch>
+      <Route
+        path="/drinks/:id/in-progress"
+        render={ (props) => (
+          <DrinksProvider><RecipeInProgress { ...props } /></DrinksProvider>) }
+      />
+      <Route
+        path="/meals/:id/in-progress"
+        render={ (props) => (
+          <MealsProvider><RecipeInProgress { ...props } /></MealsProvider>) }
+      />
+      <Route
+        exact
+        path="/meals/:id"
+        render={ (props) => (
+          <MealsProvider><RecipeDetails { ...props } /></MealsProvider>) }
+      />
+      <Route
+        exact
+        path="/drinks/:id"
+        render={ (props) => (
+          <DrinksProvider><RecipeDetails { ...props } /></DrinksProvider>) }
+      />
+      <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+      <Route path="/done-recipes" component={ DoneRecipes } />
+      <Route path="/profile" component={ Profile } />
+      <Route
+        exact
+        path="/drinks"
+        render={ () => (<DrinksProvider><Drinks /></DrinksProvider>) }
+      />
+      <Route
+        exact
+        path="/meals"
+        render={ (props) => (
+          <MealsProvider><Meals { ...props } /></MealsProvider>) }
+      />
+      <Route exact path="/" component={ Login } />
+    </Switch>
   );
 }
 

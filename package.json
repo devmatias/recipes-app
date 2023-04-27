@@ -8,12 +8,15 @@
   "dependencies": {
     "bootstrap": "^5.2.3",
     "clipboard-copy": "^4.0.1",
+    "components": "^0.1.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.3.4",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "styled": "^1.0.0",
+    "styled-components": "^5.3.10"
   },
   "scripts": {
     "cy": "env CY_CLI=true cypress run",

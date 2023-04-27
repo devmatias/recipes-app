@@ -50,7 +50,7 @@ h1 {
 
 .submit-btn :disabled {
   align-items: center;
-  background-color: #0f4d5cb1;
+  /* background-color: #0f4d5cb1; */
   border-radius: 6px;
   display: flex;
   justify-content: center;
@@ -59,7 +59,7 @@ h1 {
 
 .enterButton :enabled {
   align-items: center;
-  background-color: #0f4c5c;
+  /* background-color: #0f4c5c; */
   border-radius: 6px;
   display: flex;
   justify-content: center;

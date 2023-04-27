@@ -5,11 +5,13 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import AllProviders from './AllProviders';
+import GlobalStyle from './GlobalStyle';
 
 ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
     <AllProviders>
+      <GlobalStyle />
       <BrowserRouter>
         <App />
       </BrowserRouter>
