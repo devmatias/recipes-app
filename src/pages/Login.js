@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { AppContext } from '../context/Context';
 import { Form, Main } from '../styles/styledLogin';
-// import '../styles/Login.css';
 
 function Login() {
   const {
@@ -41,7 +40,7 @@ function Login() {
     <Main>
       <Form>
         <h1>Sign in</h1>
-        <section className="section-text-inputs">
+        <section>
           <input
             placeholder="Email"
             type="email"

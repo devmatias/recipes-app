@@ -30,20 +30,41 @@ export const Form = styled.form`
   h1 {
     font-family: 'Dancing Script', cursive;
     font-size: 50px;
+    margin-bottom: 10px;
   }
 
   section {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 
     input {
       height: 40px;
       min-width: 300px;
-      border-radius: 6px;
-      color: white;
-      margin: 4px;
-      color: black;
+      border-radius: 10px;
+      border: none;
+      padding: 5px;
+    }
+    
+    input:focus {
+      outline: none;
+    }
+
+    button {
+      align-self: center;
+      width: 50%;
+      height: 35px;
+      border-radius: 10px;
+      padding: 4px;
+      border: none;
+      background-color: rgb(189, 187, 176);
+      color: rgb(53, 53, 53);
+      font-size: 16px;
+    }
+    
+    button:disabled {
+      background-color: rgba(138, 137, 124, 0.5);
+      color: rgba(0, 0, 0, 0.5);
     }
   }
 `;
