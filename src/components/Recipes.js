@@ -6,7 +6,14 @@ import {
   pathURLCategoryFinder,
 } from '../utils/pathFinder';
 import { fetchData } from '../services/FetchFunctions';
-import '../styles/Recipes.css';
+import {
+  CardRecipe,
+  CategoryButton,
+  H3,
+  MainRecipes,
+  SectionButtons,
+  SectionRecipes,
+} from '../styles/styledRecipes';
 
 function Recipes() {
   const location = useLocation();
@@ -21,10 +28,11 @@ function Recipes() {
     categories,
     allRecipes,
   } = useContext(context);
-
   if (isLoading) {
     return <div>Carregando dados...</div>;
   }
+  const titleByLocation = location.pathname.slice(1);
+  console.log(titleByLocation);
 
   const handleRedirectDetails = (id) => {
     setIdRecipe(id);
@@ -40,7 +48,6 @@ function Recipes() {
       const dataQuery = await fetchData(pathURLCategoryFinder(location), value);
       const recipePath = dataQuery.meals || dataQuery.drinks;
       setRecipes(recipePath);
-      console.log(recipePath);
       setFilter([value]);
     }
   };
@@ -48,24 +55,23 @@ function Recipes() {
   const removeFilters = async () => {
     setRecipes(allRecipes);
   };
-
+  console.log(recipes);
   return (
-    <div className="recipes-main-container">
-      <div className="filter-btn-container">
-        <button
+    <MainRecipes>
+      <SectionButtons>
+        <CategoryButton
           type="button"
           data-testid="All-category-filter"
           onClick={ removeFilters }
-
         >
           All
-        </button>
+        </CategoryButton>
         {
           !isLoading && categories.map(({ strCategory }, index) => {
             const dataTestIdFilters = `${strCategory}-category-filter`;
             return index < NUMBER_5
           && (
-            <button
+            <CategoryButton
               key={ index }
               type="button"
               data-testid={ dataTestIdFilters }
@@ -75,33 +81,40 @@ function Recipes() {
             >
               {strCategory}
 
-            </button>
+            </CategoryButton>
           );
           })
         }
-      </div>
-      {
-        !isLoading && recipes.map((recipe, index) => {
-          const { strMeal, strDrink, strDrinkThumb,
-            strMealThumb, idMeal, idDrink } = recipe;
-          const strRecipe = strMeal || strDrink;
-          const strThumb = strMealThumb || strDrinkThumb;
-          const id = idMeal || idDrink;
-          return index < NUMBER_12
+      </SectionButtons>
+      <H3 data-testid="page-title">
+        Try our
+        {' '}
+        { titleByLocation }
+        {' '}
+        available!
+      </H3>
+      <SectionRecipes>
+        {
+          !isLoading && recipes.map((recipe, index) => {
+            const { strMeal, strDrink, strDrinkThumb,
+              strMealThumb, idMeal, idDrink } = recipe;
+            const strRecipe = strMeal || strDrink;
+            const strThumb = strMealThumb || strDrinkThumb;
+            const id = idMeal || idDrink;
+            return index < NUMBER_12
            && (
-             <div
+             <CardRecipe
                key={ index }
                data-testid={ `${index}-recipe-card` }
-               className="recipe-card"
              >
-               <p
-                 data-testid={ `${index}-card-name` }
-               >
-                 {strRecipe}
-               </p>
                <button
                  onClick={ () => handleRedirectDetails(id) }
                >
+                 <h3
+                   data-testid={ `${index}-card-name` }
+                 >
+                   {strRecipe}
+                 </h3>
                  <img
                    src={ strThumb }
                    alt={ strRecipe }
@@ -109,12 +122,13 @@ function Recipes() {
                    width="200px"
                  />
                </button>
-             </div>
+             </CardRecipe>
            );
-        })
-      }
+          })
+        }
+      </SectionRecipes>
       <div />
-    </div>
+    </MainRecipes>
 
   );
 }

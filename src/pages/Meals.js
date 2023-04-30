@@ -8,7 +8,6 @@ function Meals() {
   return (
     <header>
       <Header />
-      <h1 data-testid="page-title">Meals</h1>
       <Recipes />
       <Footer />
     </header>

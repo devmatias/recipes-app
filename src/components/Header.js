@@ -37,6 +37,7 @@ function Header() {
         </HeaderButton>
         <HeaderButton
           onClick={ toggleSearching }
+          bColor={ isSearching && '#79ADDC' }
         >
           <img
             src={ searchIcon }

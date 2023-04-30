@@ -17,7 +17,6 @@ export const HeaderTag = styled.header`
   padding: 35px 10px;
   justify-content: space-between;
   gap: 20px;
-  position: fixed;
   width: 100%;
 `;
 
@@ -29,7 +28,7 @@ export const HeaderSection = styled.section`
 `;
 
 export const HeaderButton = styled.button`
-  background-color: #FFC09F;
+  background-color: ${(props) => (props.bColor ? props.bColor : '#FFC09F')};
   padding: 15px;
   border: none;
   border-radius: 50%;
