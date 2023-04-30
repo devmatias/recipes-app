@@ -18,6 +18,8 @@ export const HeaderTag = styled.header`
   justify-content: space-between;
   gap: 20px;
   width: 100%;
+  position: fixed;
+  z-index: 1;
 `;
 
 export const HeaderSection = styled.section`
@@ -30,7 +32,7 @@ export const HeaderSection = styled.section`
 export const HeaderButton = styled.button`
   background-color: ${(props) => (props.bColor ? props.bColor : '#FFC09F')};
   padding: 15px;
-  border: none;
+  border: 1px solid #fff;
   border-radius: 50%;
   img {
     filter: invert();

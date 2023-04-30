@@ -13,6 +13,7 @@ export const SectionButtons = styled.section`
   flex-grow: 2;
   justify-content: space-between;
   align-items: center;
+  padding: 140px 0 0;
   gap: 20px;
   margin-bottom: 10px ;
   color: #fff;
@@ -59,6 +60,7 @@ export const SectionRecipes = styled.section`
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   justify-items: center;
   gap: 10px;
+  padding-bottom: 100px;
 `;
 
 export const H3 = styled.h3`
