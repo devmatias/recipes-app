@@ -8,6 +8,13 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/RecipeDetails.css';
+import {
+  ImageContainer,
+  MainRecipeDetails,
+  RecipeImage,
+  RecipeSection,
+  TitleRecipe,
+} from '../styles/styledRecipeDetails';
 
 const copy = require('clipboard-copy');
 
@@ -110,8 +117,7 @@ function RecipeDetails() {
   }, [id]);
 
   return (
-    <>
-      <h1> Recipe Details</h1>
+    <MainRecipeDetails>
       { dataRecipe
         && dataRecipe.map((recipe, index) => {
           const { idMeal, strMeal, strDrink, strDrinkThumb,
@@ -131,16 +137,31 @@ function RecipeDetails() {
           const ingredientsAndMeasures = ingredients
             .map((ingred, indexIngred) => [...ingred, ...measures[indexIngred]]);
 
+          const formatInstrunctions = strInstructions
+            .replace(/\n/g, '')
+            .split('\r')
+            .filter((elem) => elem);
+          console.log(formatInstrunctions);
           return (
-            <div key={ index }>
-              <img
-                data-testid="recipe-photo"
-                src={ strThumb }
-                alt={ strRecipe }
-                width="200px"
-              />
-              <h1 data-testid="recipe-title">{strRecipe}</h1>
-              <h2 data-testid="recipe-category">{strDescription}</h2>
+            <RecipeSection key={ index }>
+              <TitleRecipe> Recipe Details</TitleRecipe>
+              <ImageContainer>
+                <RecipeImage
+                  data-testid="recipe-photo"
+                  src={ strThumb }
+                  alt={ strRecipe }
+                />
+              </ImageContainer>
+              <h1 data-testid="recipe-title">
+                Name:
+                {' '}
+                {strRecipe}
+              </h1>
+              <h2 data-testid="recipe-category">
+                Category:
+                {' '}
+                {strDescription}
+              </h2>
               <ul>
                 {
                   ingredientsAndMeasures.map((ingredient, indexIngredient) => (
@@ -153,18 +174,17 @@ function RecipeDetails() {
 
                   ))
                 }
-                {/* {
-                  measures.map((measure, indexMeasure) => (
-                    <li
-                      key={ indexMeasure }
-                      data-testid={ `${indexMeasure}-ingredient-name-and-measure` }
-                    >
-                      {measure[1]}
-                    </li>
-                  ))
-                } */}
               </ul>
-              <p data-testid="instructions">{strInstructions}</p>
+              <div data-testid="instructions">
+                {
+                  formatInstrunctions
+                   && formatInstrunctions.map((step, indexInstruc) => (
+                     <div key={ indexInstruc }>
+                       { step }
+                     </div>
+                   ))
+                }
+              </div>
               {
                 location.pathname === `/meals/${idMeal}` && (
                   <iframe
@@ -203,7 +223,6 @@ function RecipeDetails() {
                 {
                   favoriteClick ? (
                     <button
-                      // data-testid="favorite-btn"
                       onClick={ () => handleClick() }
                     >
                       <img
@@ -227,11 +246,10 @@ function RecipeDetails() {
                   )
                 }
               </section>
-              <div>Oi</div>
-            </div>
+            </RecipeSection>
           );
         })}
-    </>
+    </MainRecipeDetails>
   );
 }
 
