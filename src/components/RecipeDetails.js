@@ -7,14 +7,16 @@ import { DETAILS_DRINKS, DETAILS_MEALS,
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import '../styles/RecipeDetails.css';
 import {
+  FloatMsg,
   ImageContainer,
   MainRecipeDetails,
+  RecipeButton,
   RecipeImage,
   RecipeSection,
-  TitleRecipe,
-} from '../styles/styledRecipeDetails';
+  SectionButtonsRecipe,
+  StartRecipe,
+} from '../styles/styledRecipe';
 
 const copy = require('clipboard-copy');
 
@@ -92,7 +94,6 @@ function RecipeDetails() {
     const saveStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (!favoriteClick) {
       setFavoriteClick(true);
-
       localStorage.setItem(
         'favoriteRecipes',
         JSON.stringify([...saveStorage, settingFavorites]),
@@ -144,37 +145,36 @@ function RecipeDetails() {
           console.log(formatInstrunctions);
           return (
             <RecipeSection key={ index }>
-              <TitleRecipe> Recipe Details</TitleRecipe>
               <ImageContainer>
+                <h1 data-testid="recipe-title">
+                  Name:
+                  {' '}
+                  {strRecipe}
+                </h1>
+                <h2 data-testid="recipe-category">
+                  Category:
+                  {' '}
+                  {strDescription}
+                </h2>
                 <RecipeImage
                   data-testid="recipe-photo"
                   src={ strThumb }
                   alt={ strRecipe }
                 />
+                <ul>
+                  {
+                    ingredientsAndMeasures.map((ingredient, indexIngredient) => (
+                      <li
+                        key={ indexIngredient }
+                        data-testid={ `${indexIngredient}-ingredient-name-and-measure` }
+                      >
+                        {`${ingredient[1]} - ${ingredient[3]}`}
+                      </li>
+                    ))
+                  }
+                </ul>
               </ImageContainer>
-              <h1 data-testid="recipe-title">
-                Name:
-                {' '}
-                {strRecipe}
-              </h1>
-              <h2 data-testid="recipe-category">
-                Category:
-                {' '}
-                {strDescription}
-              </h2>
-              <ul>
-                {
-                  ingredientsAndMeasures.map((ingredient, indexIngredient) => (
-                    <li
-                      key={ indexIngredient }
-                      data-testid={ `${indexIngredient}-ingredient-name-and-measure` }
-                    >
-                      {`${ingredient[1]} - ${ingredient[3]}`}
-                    </li>
 
-                  ))
-                }
-              </ul>
               <div data-testid="instructions">
                 {
                   formatInstrunctions
@@ -196,17 +196,8 @@ function RecipeDetails() {
                   />
                 )
               }
-              <section>
-                <button
-                  className="startRecipe"
-                  data-testid="start-recipe-btn"
-                  onClick={ () => handleStartButton() }
-                >
-                  Start Recipe
-                </button>
-              </section>
-              <section>
-                <button
+              <SectionButtonsRecipe>
+                <RecipeButton
                   onClick={ () => handleShareButton() }
                   data-testid="share-btn"
                 >
@@ -214,38 +205,40 @@ function RecipeDetails() {
                     src={ shareIcon }
                     alt="Icone de compartilhamento"
                   />
-                </button>
-                {
-                  clickShare && <h2>Link copied!</h2>
-                }
-              </section>
-              <section>
+                  {
+                    clickShare && <FloatMsg>Link copied!</FloatMsg>
+                  }
+                </RecipeButton>
                 {
                   favoriteClick ? (
-                    <button
-                      onClick={ () => handleClick() }
+                    <RecipeButton
+                      onClick={ handleClick }
                     >
                       <img
                         data-testid="favorite-btn"
                         src={ blackHeartIcon }
                         alt="Imagem de coracao"
                       />
-                    </button>
-
+                    </RecipeButton>
                   ) : (
-                    <button
-                      onClick={ () => handleClick() }
+                    <RecipeButton
+                      onClick={ handleClick }
                     >
                       <img
                         data-testid="favorite-btn"
                         src={ whiteHeartIcon }
                         alt="Imagem de coracao"
                       />
-                    </button>
-
+                    </RecipeButton>
                   )
                 }
-              </section>
+              </SectionButtonsRecipe>
+              <StartRecipe
+                data-testid="start-recipe-btn"
+                onClick={ handleStartButton }
+              >
+                Start Recipe
+              </StartRecipe>
             </RecipeSection>
           );
         })}

@@ -13,7 +13,7 @@ import {
   MainRecipes,
   SectionButtons,
   SectionRecipes,
-} from '../styles/styledRecipes';
+} from '../styles/styledMainPage';
 
 function Recipes() {
   const location = useLocation();
