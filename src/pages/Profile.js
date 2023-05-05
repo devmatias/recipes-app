@@ -1,6 +1,12 @@
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import profileIcon from '../images/profileIcon.svg';
+import {
+  ButtonsSection,
+  HeaderButtonProfile,
+  HeaderTagProfile,
+  ProfileButtons,
+} from '../styles/styledProfile';
 
 function Profile() {
   let saveEmail = '';
@@ -21,9 +27,12 @@ function Profile() {
 
   return (
     <>
-      <header>
+      <HeaderTagProfile>
         <h1 data-testid="page-title">Profile</h1>
-        <button
+        {
+          saveEmail.email && (<p data-testid="profile-email">{saveEmail.email}</p>)
+        }
+        <HeaderButtonProfile
           onClick={ () => redirectPage('/profile') }
         >
           <img
@@ -31,32 +40,31 @@ function Profile() {
             alt="profile Icon"
             data-testid="profile-top-btn"
           />
-        </button>
-      </header>
-      {
-        saveEmail.email && (<p data-testid="profile-email">{saveEmail.email}</p>)
-      }
-      <button
-        onClick={ () => redirectPage('/done-recipes') }
-        type="button"
-        data-testid="profile-done-btn"
-      >
-        Done Recipes
-      </button>
-      <button
-        onClick={ () => redirectPage('/favorite-recipes') }
-        type="button"
-        data-testid="profile-favorite-btn"
-      >
-        Favorite Recipes
-      </button>
-      <button
-        onClick={ () => handleClick() }
-        type="button"
-        data-testid="profile-logout-btn"
-      >
-        Logout
-      </button>
+        </HeaderButtonProfile>
+      </HeaderTagProfile>
+      <ButtonsSection>
+        <ProfileButtons
+          onClick={ () => redirectPage('/done-recipes') }
+          type="button"
+          data-testid="profile-done-btn"
+        >
+          Done Recipes
+        </ProfileButtons>
+        <ProfileButtons
+          onClick={ () => redirectPage('/favorite-recipes') }
+          type="button"
+          data-testid="profile-favorite-btn"
+        >
+          Favorite Recipes
+        </ProfileButtons>
+        <ProfileButtons
+          onClick={ () => handleClick() }
+          type="button"
+          data-testid="profile-logout-btn"
+        >
+          Logout
+        </ProfileButtons>
+      </ButtonsSection>
       <Footer />
     </>
   );
