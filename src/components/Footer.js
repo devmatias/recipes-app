@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-import '../styles/Footer.css';
 import { FooterButton, FooterTag } from '../styles/styledFooter';
 
 function Footer() {

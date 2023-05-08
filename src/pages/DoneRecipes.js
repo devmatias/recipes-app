@@ -2,6 +2,12 @@ import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import DoneRecipesCard from '../components/DoneRecipesCard';
+import {
+  CategoryButton,
+  HeaderTagDRecipes,
+  SectionButtons,
+} from '../styles/styledDoneRecipes';
+import { HeaderButtonProfile } from '../styles/styledProfile';
 
 function DoneRecipes() {
   const arr = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -22,35 +28,39 @@ function DoneRecipes() {
     history.push(path);
   };
   return (
-    <header>
-      <h1 data-testid="page-title">Done Recipes</h1>
-      <button
-        onClick={ () => redirectPage('/profile') }
-      >
-        <img
-          src={ profileIcon }
-          alt="profile Icon"
-          data-testid="profile-top-btn"
-        />
-      </button>
-      <button
-        onClick={ () => handleRecips() }
-        data-testid="filter-by-all-btn"
-      >
-        All
-      </button>
-      <button
-        data-testid="filter-by-meal-btn"
-        onClick={ () => handleRecips('meal') }
-      >
-        Meals
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        onClick={ () => handleRecips('drink') }
-      >
-        Drinks
-      </button>
+    <>
+      <HeaderTagDRecipes>
+        <h1 data-testid="page-title">Done Recipes</h1>
+        <SectionButtons>
+          <CategoryButton
+            onClick={ () => handleRecips() }
+            data-testid="filter-by-all-btn"
+          >
+            All
+          </CategoryButton>
+          <CategoryButton
+            data-testid="filter-by-meal-btn"
+            onClick={ () => handleRecips('meal') }
+          >
+            Meals
+          </CategoryButton>
+          <CategoryButton
+            data-testid="filter-by-drink-btn"
+            onClick={ () => handleRecips('drink') }
+          >
+            Drinks
+          </CategoryButton>
+        </SectionButtons>
+        <HeaderButtonProfile
+          onClick={ () => redirectPage('/profile') }
+        >
+          <img
+            src={ profileIcon }
+            alt="profile Icon"
+            data-testid="profile-top-btn"
+          />
+        </HeaderButtonProfile>
+      </HeaderTagDRecipes>
       { (recipes && recipes.length > 0)
         && recipes.map((recipe, index) => (
           <DoneRecipesCard
@@ -66,7 +76,7 @@ function DoneRecipes() {
             id={ recipe.id }
           />
         ))}
-    </header>
+    </>
   );
 }
 

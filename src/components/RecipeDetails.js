@@ -2,8 +2,10 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useContext, useState } from 'react';
 import { fetchData } from '../services/FetchFunctions';
 import { pathContextFinder } from '../utils/pathFinder';
-import { DETAILS_DRINKS, DETAILS_MEALS,
-  MEALS_NAME_URL, DRINKS_NAME_URL } from '../utils/constants';
+import {
+  DETAILS_DRINKS, DETAILS_MEALS,
+  MEALS_NAME_URL, DRINKS_NAME_URL,
+} from '../utils/constants';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -15,8 +17,9 @@ import {
   RecipeImage,
   RecipeSection,
   SectionButtonsRecipe,
-  StartRecipe,
+  ActionButtonRecipe,
 } from '../styles/styledRecipe';
+import { recipeSetter } from '../utils/recipeSetter';
 
 const copy = require('clipboard-copy');
 
@@ -43,6 +46,7 @@ function RecipeDetails() {
       }
       if (location.pathname.includes('/drinks')) {
         const detailsData = await fetchData(DETAILS_DRINKS, params);
+        console.log(detailsData);
         setDataRecipe(detailsData.drinks);
         return detailsData;
       }
@@ -72,25 +76,7 @@ function RecipeDetails() {
   };
 
   const handleClick = () => {
-    const { idDrink, idMeal,
-      strMeal, strDrink,
-      strDrinkThumb, strMealThumb,
-      strCategory, strAlcoholic, strArea,
-    } = dataRecipe[0];
-    const idRecipe = idMeal || idDrink;
-    const typeRecipe = idDrink ? 'drink' : 'meal';
-    const strRecipe = strMeal || strDrink;
-    const strThumb = strMealThumb || strDrinkThumb;
-
-    const settingFavorites = {
-      id: idRecipe,
-      type: typeRecipe,
-      nationality: strArea || '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic || '',
-      name: strRecipe,
-      image: strThumb,
-    };
+    const settingFavorites = recipeSetter(dataRecipe[0]);
     const saveStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (!favoriteClick) {
       setFavoriteClick(true);
@@ -119,7 +105,7 @@ function RecipeDetails() {
 
   return (
     <MainRecipeDetails>
-      { dataRecipe
+      {dataRecipe
         && dataRecipe.map((recipe, index) => {
           const { idMeal, strMeal, strDrink, strDrinkThumb,
             strMealThumb, strCategory, strInstructions, strYoutube, strAlcoholic,
@@ -136,13 +122,16 @@ function RecipeDetails() {
               .includes('strMeasure') && element[1] !== ' ' && element[1]);
 
           const ingredientsAndMeasures = ingredients
-            .map((ingred, indexIngred) => [...ingred, ...measures[indexIngred]]);
+            .map((ingred, indexIngred) => [
+              ...ingred,
+              ...measures[indexIngred] || [`strMeasure${indexIngred + 1}`, 'To taste']]);
 
+          console.log(ingredientsAndMeasures);
           const formatInstrunctions = strInstructions
             .replace(/\n/g, '')
             .split('\r')
             .filter((elem) => elem);
-          console.log(formatInstrunctions);
+
           return (
             <RecipeSection key={ index }>
               <ImageContainer>
@@ -178,11 +167,11 @@ function RecipeDetails() {
               <div data-testid="instructions">
                 {
                   formatInstrunctions
-                   && formatInstrunctions.map((step, indexInstruc) => (
-                     <div key={ indexInstruc }>
-                       { step }
-                     </div>
-                   ))
+                  && formatInstrunctions.map((step, indexInstruc) => (
+                    <div key={ indexInstruc }>
+                      {step}
+                    </div>
+                  ))
                 }
               </div>
               {
@@ -233,12 +222,12 @@ function RecipeDetails() {
                   )
                 }
               </SectionButtonsRecipe>
-              <StartRecipe
+              <ActionButtonRecipe
                 data-testid="start-recipe-btn"
                 onClick={ handleStartButton }
               >
                 Start Recipe
-              </StartRecipe>
+              </ActionButtonRecipe>
             </RecipeSection>
           );
         })}

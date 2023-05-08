@@ -100,7 +100,7 @@ export const FloatMsg = styled.div`
   color: #fff;
 `;
 
-export const StartRecipe = styled.button`
+export const ActionButtonRecipe = styled.button`
   box-sizing: border-box;
   appearance: none;
   background-color: #fff;

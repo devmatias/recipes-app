@@ -32,6 +32,7 @@ export const ButtonsSection = styled.section`
 `;
 
 export const HeaderButtonProfile = styled.button`
+  cursor: pointer;
   background-color: #FFC09F;
   padding: 15px;
   border: 1px solid #fff;
