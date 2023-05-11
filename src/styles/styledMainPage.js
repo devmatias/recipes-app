@@ -4,7 +4,6 @@ export const MainRecipes = styled.main`
   padding: 10px;
   background-color: rgb(255, 192, 159);
   color: #fff;
-
 `;
 
 export const SectionButtons = styled.section`

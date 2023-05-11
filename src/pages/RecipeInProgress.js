@@ -88,12 +88,17 @@ function RecipeInProgress() {
     const settingDoneRecipes = recipeSetter(dataRecipe[0]);
 
     const savedDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-
-    localStorage.setItem(
-      'doneRecipes',
-      JSON.stringify([...savedDoneRecipes, settingDoneRecipes]),
-    );
-    history.push('/done-recipes');
+    const isRecipeDone = savedDoneRecipes
+      .some((item) => (item.id === settingDoneRecipes.id));
+    if (isRecipeDone) {
+      history.push('/done-recipes');
+    } else {
+      localStorage.setItem(
+        'doneRecipes',
+        JSON.stringify([...savedDoneRecipes, settingDoneRecipes]),
+      );
+      history.push('/done-recipes');
+    }
   };
   console.log(dataRecipe);
 

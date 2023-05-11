@@ -70,3 +70,92 @@ export const CategoryButton = styled.button`
     inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
   }
 `;
+
+export const SectionDoneRecipes = styled.section`
+  padding: 150px 20px ;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
+
+export const CardDoneRecipe = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background-color: #79addc;
+  padding-bottom: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px 5px rgba(0, 0, 0, 0.2);
+
+`;
+
+export const ContentCardDoneRecipe = styled.div`
+  width: 240px;
+  height: 240px;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  img {
+    cursor: pointer;
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: all .2s ease-out;
+  }
+  :hover img {
+    transition: all .3s ease-in;
+    opacity: 0.8;
+  }
+
+  h3 {
+    cursor: pointer;
+    color: #fff;
+    font-family: inherit;
+    background-color: black;
+    padding: 3px;
+    width: 100%;
+    position: absolute;
+    inset: auto auto 0 0;
+    margin: 0;
+    text-align: center;
+    transition: inset .3s .3s ease-out;
+    text-transform: uppercase;
+  }
+  :hover h3 {
+    /* inset: auto auto 100px 0; */
+    z-index: 1;
+    transition: inset .3s ease-out;
+  }
+`;
+
+export const DoneRecipeButton = styled.button`
+  background-color: #FFC09F;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #fff;
+  img {
+    filter: invert();
+  }
+  :focus {
+    color: #79ADDC;
+    outline: 0;
+  }
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  :hover {
+    color: #fff;
+    outline: 0;
+    box-shadow: 0 0 40px 40px #79ADDC inset;
+  }
+`;
+
+export const FloatMsg = styled.div`
+  position: absolute;
+  transform: translate(-25%,150%);
+  color: #fff;
+`;

@@ -6,6 +6,7 @@ import {
   CategoryButton,
   HeaderTagDRecipes,
   SectionButtons,
+  SectionDoneRecipes,
 } from '../styles/styledDoneRecipes';
 import { HeaderButtonProfile } from '../styles/styledProfile';
 
@@ -61,7 +62,8 @@ function DoneRecipes() {
           />
         </HeaderButtonProfile>
       </HeaderTagDRecipes>
-      { (recipes && recipes.length > 0)
+      <SectionDoneRecipes>
+        { (recipes && recipes.length > 0)
         && recipes.map((recipe, index) => (
           <DoneRecipesCard
             key={ index }
@@ -76,6 +78,7 @@ function DoneRecipes() {
             id={ recipe.id }
           />
         ))}
+      </SectionDoneRecipes>
     </>
   );
 }

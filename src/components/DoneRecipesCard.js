@@ -3,6 +3,7 @@ import PropTypes, { string } from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import icon from '../images/shareIcon.svg';
+import { CardDoneRecipe, ContentCardDoneRecipe, DoneRecipeButton, FloatMsg } from '../styles/styledDoneRecipes';
 
 function DoneRecipesCard(props) {
   const [link, setLink] = useState('');
@@ -14,30 +15,27 @@ function DoneRecipesCard(props) {
 
   const { index, image, name, category, date, tags, type, id } = props;
   return (
-    <div data-testid={ `${index}-recipe-card` }>
-      <Link
-        to={ `/${type}s/${id}` }
-      >
-        <h1 data-testid={ `${index}-horizontal-name` }>{ name }</h1>
-      </Link>
-      <p data-testid={ `${index}-horizontal-top-text` }>{ category }</p>
-      <Link
-        to={ `/${type}s/${id}` }
-      >
-        <img
-          src={ image }
-          alt={ name }
-          data-testid={ `${index}-horizontal-image` }
-          width="300px"
-        />
-      </Link>
-      <p data-testid={ `${index}-horizontal-done-date` }>{ date }</p>
-      <p
-        data-testid="link-copied"
-      >
-        { link }
-      </p>
-      <button
+    <CardDoneRecipe>
+      <ContentCardDoneRecipe data-testid={ `${index}-recipe-card` }>
+        <Link
+          to={ `/${type}s/${id}` }
+        >
+          <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
+        </Link>
+        <p data-testid={ `${index}-horizontal-top-text` }>{ category }</p>
+        <Link
+          to={ `/${type}s/${id}` }
+        >
+          <img
+            src={ image }
+            alt={ name }
+            data-testid={ `${index}-horizontal-image` }
+            width="300px"
+          />
+        </Link>
+        <p data-testid={ `${index}-horizontal-done-date` }>{ date }</p>
+      </ContentCardDoneRecipe>
+      <DoneRecipeButton
         onClick={ () => handleClick(type, id) }
       >
         <img
@@ -45,7 +43,12 @@ function DoneRecipesCard(props) {
           alt="share button"
           src={ icon }
         />
-      </button>
+        <FloatMsg
+          data-testid="link-copied"
+        >
+          { link }
+        </FloatMsg>
+      </DoneRecipeButton>
       {
         tags && tags.map((tag, i) => (
           <p
@@ -56,7 +59,7 @@ function DoneRecipesCard(props) {
           </p>
         ))
       }
-    </div>
+    </CardDoneRecipe>
   );
 }
 
